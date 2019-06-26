@@ -1,7 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Mehdi
- * Date: 06/22/2019
- * Time: 09:14
+ * The template file to show author pages in WordPress
+ *
+ * To show author pages in WordPress, you can use from this template file.
+ *
+ * @package
+ * @version 1.0.1
+ * @author Mehdi Soltani <soltani.n.mehdi@gmail.com>
  */

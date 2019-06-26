@@ -1,7 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Mehdi
- * Date: 06/22/2019
- * Time: 09:16
+ * The template file to separate sidebar section in WordPress
+ *
+ * If you want to separate sidebar codes in WordPress, you can use from this template file.
+ *
+ * @package
+ * @version 1.0.1
+ * @author Mehdi Soltani <soltani.n.mehdi@gmail.com>
  */
