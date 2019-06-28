@@ -7,5 +7,15 @@
  *
  * @package
  * @version 1.0.1
- * @author Mehdi Soltani <soltani.n.mehdi@gmail.com>
+ * @author  Mehdi Soltani <soltani.n.mehdi@gmail.com>
  */
+
+
+use Theme_Name_Name_Space\Inc\Core\Constant;
+$autoloader_path = 'inc/class-autoloader.php';
+/**
+ * Include autoloader class to load all of classes inside this theme
+ */
+require_once trailingslashit( get_theme_file_path() ) . $autoloader_path;
+/*Define required constant for theme*/
+Constant::define_constant();
