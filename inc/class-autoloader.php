@@ -14,13 +14,17 @@
 
 namespace Theme_Name_Name_Space\Inc;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Class Autoloader
  *
  * Autoloader class can manage and handle using classes and files in whole of
  * your plugin by including them when they are needed.
  *
- * @package    Theme_Name_Name_Space\Includes
+ * @package    Theme_Name_Name_Space\Inc
  * @author     Your_Name <youremail@nomail.com>
  */
 class Autoloader {
@@ -83,7 +87,7 @@ class Autoloader {
 		}
 
 		// Now build a path to the file using mapping to the file location.
-		$file_path  = trailingslashit( get_theme_file_path() . $namespace );
+		$file_path = trailingslashit( get_theme_file_path() . $namespace );
 		$file_path .= $file_name;
 
 		// If the file exists in the specified path, then include it.
@@ -98,3 +102,4 @@ class Autoloader {
 }
 
 new Autoloader();
+
