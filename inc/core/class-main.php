@@ -28,6 +28,38 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Main {
 
 	/**
+	 * The unique identifier of this theme.
+	 *
+	 * @since    1.0.1
+	 * @access   protected
+	 * @var      string $theme_name The string used to uniquely identify this theme.
+	 */
+	protected $theme_name;
+
+	/**
+	 * The current version of the theme.
+	 *
+	 * @since    1.0.1
+	 * @access   protected
+	 * @var      string $theme_version The current version of the theme.
+	 */
+	protected $theme_version;
+
+	/**
+	 * @return string
+	 */
+	public function get_theme_name(): string {
+		return $this->theme_name;
+	}
+
+	/**
+	 * @param string $theme_name
+	 */
+	public function set_theme_name( string $theme_name ): void {
+		$this->theme_name = $theme_name;
+	}
+
+	/**
 	 * Main constructor.
 	 * This is constructor of Main class and you can use it for hooking your file
 	 * inside it like actions or filters
@@ -36,6 +68,12 @@ class Main {
 	 * @since  1.0.1
 	 */
 	public function __construct() {
+		if ( defined( 'THEME_NAME_VERSION' ) ) {
+			$this->version = THEME_NAME_VERSION;
+		} else {
+			$this->version = '1.0.1';
+		}
+		$this->theme_name = 'theme-name';
 		add_action( 'after_setup_theme', array( $this, 'setup' ) );
 		/*add_action( 'widgets_init', array( $this, 'widgets_init' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'scripts' ), 10 );*/
