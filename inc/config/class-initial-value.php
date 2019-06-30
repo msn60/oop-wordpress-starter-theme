@@ -7,9 +7,9 @@
  * run your theme, you can use from this class.
  *
  * @package    Theme_Name_Name_Space\Inc\Config
- * @author     Your_Name <youremail@nomail.com>
+ * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  * @license    https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
- * @link       https://yoursite.com
+ * @link       https://wpwebmaster.ir
  * @since      1.0.1
  */
 
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * each time that WordPress run your theme, you can use from this class.
  *
  * @package    Theme_Name_Name_Space\Inc\Config
- * @author     Your_Name <youremail@nomail.com>
+ * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  */
 class Initial_Value {
 

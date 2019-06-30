@@ -6,9 +6,9 @@
  * your theme development processes.
  *
  * @package    Theme_Name_Name_Space\Includes\Init
- * @author     Your_Name <youremail@nomail.com>
+ * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  * @license    https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
- * @link       https://yoursite.com
+ * @link       https://wpwebmaster.ir
  * @since      1.0.0
  */
 
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * This class defines needed constants that you will use in theme development.
  *
  * @package    Theme_Name_Name_Space\Inc\Core
- * @author     Your_Name <youremail@nomail.com>
+ * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  */
 class Constant {
 

@@ -6,8 +6,9 @@
  * that you want to use it in your WordPress theme, are inside in this file.
  *
  * @package
- * @version 1.0.1
- * @author  Mehdi Soltani <soltani.n.mehdi@gmail.com>
+ * @version    1.0.1
+ * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
+ * @link       https://wpwebmaster.ir
  */
 
 use Theme_Name_Name_Space\Inc\Core\Constant;
