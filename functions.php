@@ -38,3 +38,5 @@ if ( ! is_admin() ) {
 	add_filter('show_admin_bar', '__return_false');
 }
 
+echo 'this is test sample for me';
+
