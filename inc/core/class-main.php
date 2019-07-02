@@ -46,20 +46,6 @@ class Main {
 	protected $theme_version;
 
 	/**
-	 * @return string
-	 */
-	public function get_theme_name(): string {
-		return $this->theme_name;
-	}
-
-	/**
-	 * @param string $theme_name
-	 */
-	public function set_theme_name( string $theme_name ): void {
-		$this->theme_name = $theme_name;
-	}
-
-	/**
 	 * Main constructor.
 	 * This is constructor of Main class and you can use it for hooking your file
 	 * inside it like actions or filters
@@ -75,8 +61,22 @@ class Main {
 		}
 		$this->theme_name = 'theme-name';
 		add_action( 'after_setup_theme', array( $this, 'setup' ) );
-		/*add_action( 'widgets_init', array( $this, 'widgets_init' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'scripts' ), 10 );*/
+		add_action( 'wp_enqueue_scripts', array( $this, 'scripts' ), 10 );
+		/*add_action( 'widgets_init', array( $this, 'widgets_init' ) );*/
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_theme_name(): string {
+		return $this->theme_name;
+	}
+
+	/**
+	 * @param string $theme_name
+	 */
+	public function set_theme_name( string $theme_name ): void {
+		$this->theme_name = $theme_name;
 	}
 
 	/**
@@ -318,51 +318,40 @@ class Main {
 	 * @since  1.0.1
 	 */
 	public function scripts() {
-		global $storefront_version;
 
 		/**
-		 * Styles
+		 * Add theme style to your WordPress site
+		 *
+		 * With this function, you can add your style for front-end of your website
 		 */
-		wp_enqueue_style( 'storefront-style', get_template_directory_uri() . '/style.css', '', $storefront_version );
-		wp_style_add_data( 'storefront-style', 'rtl', 'replace' );
 
-		wp_enqueue_style( 'storefront-icons', get_template_directory_uri() . '/assets/css/base/icons.css', '', $storefront_version );
-		wp_style_add_data( 'storefront-icons', 'rtl', 'replace' );
+		wp_enqueue_style(
+			$this->theme_name . '-style',
+			THEME_NAME_CSS . 'theme-name-ver-' . THEME_NAME_CSS_VERSION . '.css',
+			array(),
+			null,
+			'all'
+		);
+		wp_style_add_data(
+			$this->theme_name . '-style',
+			'rtl',
+			'replace'
+		);
 
 		/**
-		 * Fonts
+		 * Add theme JavaScript file to your WordPress site
+		 *
+		 * With this function, you can add your js file for front-end of your website
 		 */
-		wp_enqueue_style( 'storefront-fonts', $this->google_fonts(), array(), null );
+		wp_enqueue_script(
+			$this->theme_name . '-script',
+			THEME_NAME_JS . 'theme-name-ver-' . THEME_NAME_JS_VERSION . '.js',
+			array( 'jquery' ),
+			null,
+			true
+		);
 
-		/**
-		 * Scripts
-		 */
-		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
-		wp_enqueue_script( 'storefront-navigation', get_template_directory_uri() . '/assets/js/navigation' . $suffix . '.js', array(),
-			$storefront_version, true );
-		wp_enqueue_script( 'storefront-skip-link-focus-fix', get_template_directory_uri() . '/assets/js/skip-link-focus-fix' . $suffix . '.js',
-			array(), '20130115', true );
-
-		if ( has_nav_menu( 'handheld' ) ) {
-			$storefront_l10n = array(
-				'expand'   => __( 'Expand child menu', 'storefront' ),
-				'collapse' => __( 'Collapse child menu', 'storefront' ),
-			);
-
-			wp_localize_script( 'storefront-navigation', 'storefrontScreenReaderText', $storefront_l10n );
-		}
-
-		if ( is_page_template( 'template-homepage.php' ) && has_post_thumbnail() ) {
-			wp_enqueue_script( 'storefront-homepage', get_template_directory_uri() . '/assets/js/homepage' . $suffix . '.js', array(),
-				$storefront_version, true );
-		}
-
-		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-			wp_enqueue_script( 'comment-reply' );
-		}
-
-		wp_enqueue_script( 'jquery-pep', get_template_directory_uri() . '/assets/js/vendor/pep.min.js', array(), '0.4.3', true );
 	}
 
 	/**

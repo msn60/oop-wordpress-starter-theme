@@ -38,6 +38,5 @@ if ( ! is_admin() ) {
 	add_filter('show_admin_bar', '__return_false');
 }
 
-echo '<h1>'. $msn_theme_name_name_space_object->get_theme_name().'</h1>';
 
 

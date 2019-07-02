@@ -10,3 +10,6 @@
  * @link       https://wpwebmaster.ir
  */
 
+/*wp_head();
+wp_footer();*/
+
