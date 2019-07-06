@@ -13,6 +13,13 @@
 
 namespace Theme_Name_Name_Space\Inc\Core;
 
+/*
+ * Define your namespaces here by use keyword
+ * */
+use Theme_Name_Name_Space\Inc\Admin\Admin_Menu;
+use Theme_Name_Name_Space\Inc\Admin\Admin_Sub_Menu;
+use Theme_Name_Name_Space\Inc\Config\Initial_Value;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -63,6 +70,9 @@ class Main {
 		add_action( 'after_setup_theme', array( $this, 'setup' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'scripts' ), 10 );
 		/*add_action( 'widgets_init', array( $this, 'widgets_init' ) );*/
+		if ( is_admin() ) {
+			$this->set_admin_menu();
+		}
 	}
 
 	/**
@@ -405,6 +415,28 @@ class Main {
 		remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
 		remove_action( 'wp_print_styles', 'print_emoji_styles' );
 		remove_action( 'admin_print_styles', 'print_emoji_styles' );
+	}
+
+	/**
+	 * Define admin menu for your theme
+	 *
+	 * If you need some admin menus in WordPress admin panel, you can use
+	 * from this method.
+	 *
+	 * @since    1.0.1
+	 * @access   private
+	 * @see      \Theme_Name_Name_Space\Inc\Config\Admin_Menu
+	 * @see      \Theme_Name_Name_Space\Inc\Config\Initial_Value
+	 */
+	private function set_admin_menu() {
+		$theme_name_sample_admin_menu = new Admin_Menu( Initial_Value::sample_menu_page() );
+		add_action( 'admin_menu', array( $theme_name_sample_admin_menu, 'add_admin_menu_page' ) );
+
+		$theme_name_sample_admin_sub_menu1 = new Admin_Sub_Menu( Initial_Value::sample_sub_menu_page1() );
+		add_action( 'admin_menu', array( $theme_name_sample_admin_sub_menu1, 'add_admin_sub_menu_page' ) );
+
+		$theme_name_sample_admin_sub_menu2 = new Admin_Sub_Menu( Initial_Value::sample_sub_menu_page2() );
+		add_action( 'admin_menu', array( $theme_name_sample_admin_sub_menu2, 'add_admin_sub_menu_page' ) );
 	}
 }
 
