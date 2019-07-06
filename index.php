@@ -10,4 +10,12 @@
  * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  * @link       https://wpwebmaster.ir
  */
-echo 'this is the first line';
+
+get_header();
+get_template_part('template-parts/header/header','menu');
+/*
+get_template_part('templates/pages/main-blog-page');
+
+get_template_part('templates/footer-section');*/
+echo 'this is the first line in index file';
+get_footer();

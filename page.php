@@ -9,7 +9,12 @@
  * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  * @link       https://wpwebmaster.ir
  */
+get_header();
+get_template_part('template-parts/header/header','menu');
+/*
+get_template_part('templates/pages/main-blog-page');
 
-/*wp_head();
-wp_footer();*/
+get_template_part('templates/footer-section');*/
+echo 'this is the first line';
+get_footer();
 
