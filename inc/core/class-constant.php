@@ -83,10 +83,18 @@ class Constant {
 
 		/**
 		 * THEME_NAME_TPL constant.
-		 * It is used to specify template urls inside templates directory.
+		 * It is used to specify template path inside templates directory.
 		 */
 		if ( ! defined( 'THEME_NAME_TPL' ) ) {
 			define( 'THEME_NAME_TPL', trailingslashit( THEME_NAME_PATH . 'template-parts' ) );
+		}
+
+		/**
+		 * THEME_NAME_ADMIN_TPL constant.
+		 * It is used to specify template path inside templates directory.
+		 */
+		if ( ! defined( 'THEME_NAME_ADMIN_TPL' ) ) {
+			define( 'THEME_NAME_ADMIN_TPL', trailingslashit( THEME_NAME_PATH . 'template-parts/admin/' ) );
 		}
 
 		/**

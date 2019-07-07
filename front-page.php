@@ -10,8 +10,11 @@
  * @since      1.0.1
  */
 
+
+
 get_header();
 get_template_part('template-parts/header/header','menu');
 get_template_part('template-parts/pages/site-main-page');
+
 get_template_part('template-parts/footer/footer','menu');
 get_footer();
