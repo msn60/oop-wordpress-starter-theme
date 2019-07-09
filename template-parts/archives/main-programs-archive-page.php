@@ -4,7 +4,7 @@
  *
  * To show program archive pages in your theme, you can use from this template part.
  *
- * @package
+ * @package    Theme_Name_Name_Space
  * @version    1.0.1
  * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  * @link       https://wpwebmaster.ir

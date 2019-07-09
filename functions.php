@@ -5,7 +5,7 @@
  * This file is like a plugin for your template. All of functions and classes
  * that you want to use it in your WordPress theme, are inside in this file.
  *
- * @package
+ * @package    Theme_Name_Name_Space
  * @version    1.0.1
  * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  * @link       https://wpwebmaster.ir
@@ -35,7 +35,7 @@ $msn_theme_name_name_space_object = new Main();
  * */
 if ( ! is_admin() ) {
 	$msn_theme_name_name_space_object->remove_extra_actions();
-	add_filter('show_admin_bar', '__return_false');
+	add_filter( 'show_admin_bar', '__return_false' );
 }
 
 
