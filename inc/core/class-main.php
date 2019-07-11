@@ -76,6 +76,28 @@ class Main {
 	}
 
 	/**
+	 * Define admin menu for your theme
+	 *
+	 * If you need some admin menus in WordPress admin panel, you can use
+	 * from this method.
+	 *
+	 * @since    1.0.1
+	 * @access   private
+	 * @see      \Theme_Name_Name_Space\Inc\Config\Admin_Menu
+	 * @see      \Theme_Name_Name_Space\Inc\Config\Initial_Value
+	 */
+	private function set_admin_menu() {
+		$theme_name_sample_admin_menu = new Admin_Menu( Initial_Value::sample_menu_page() );
+		add_action( 'admin_menu', array( $theme_name_sample_admin_menu, 'add_admin_menu_page' ) );
+
+		$theme_name_sample_admin_sub_menu1 = new Admin_Sub_Menu( Initial_Value::sample_sub_menu_page1() );
+		add_action( 'admin_menu', array( $theme_name_sample_admin_sub_menu1, 'add_admin_sub_menu_page' ) );
+
+		$theme_name_sample_admin_sub_menu2 = new Admin_Sub_Menu( Initial_Value::sample_sub_menu_page2() );
+		add_action( 'admin_menu', array( $theme_name_sample_admin_sub_menu2, 'add_admin_sub_menu_page' ) );
+	}
+
+	/**
 	 * @return string
 	 */
 	public function get_theme_name(): string {
@@ -223,6 +245,14 @@ class Main {
 		 * Add support for editor styles.
 		 */
 		add_theme_support( 'editor-styles' );
+
+		/**
+		 * Enqueue editor styles.
+		 * If you need to enqueue editor style, you can use it.
+		 *
+		 * @link: https://richtabor.com/add-wordpress-theme-styles-to-gutenberg/
+		 */
+		add_editor_style( THEME_NAME_CSS.'admin/gutenberg-editor.css' );
 
 		/**
 		 * Enqueue editor styles.
@@ -415,28 +445,6 @@ class Main {
 		remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
 		remove_action( 'wp_print_styles', 'print_emoji_styles' );
 		remove_action( 'admin_print_styles', 'print_emoji_styles' );
-	}
-
-	/**
-	 * Define admin menu for your theme
-	 *
-	 * If you need some admin menus in WordPress admin panel, you can use
-	 * from this method.
-	 *
-	 * @since    1.0.1
-	 * @access   private
-	 * @see      \Theme_Name_Name_Space\Inc\Config\Admin_Menu
-	 * @see      \Theme_Name_Name_Space\Inc\Config\Initial_Value
-	 */
-	private function set_admin_menu() {
-		$theme_name_sample_admin_menu = new Admin_Menu( Initial_Value::sample_menu_page() );
-		add_action( 'admin_menu', array( $theme_name_sample_admin_menu, 'add_admin_menu_page' ) );
-
-		$theme_name_sample_admin_sub_menu1 = new Admin_Sub_Menu( Initial_Value::sample_sub_menu_page1() );
-		add_action( 'admin_menu', array( $theme_name_sample_admin_sub_menu1, 'add_admin_sub_menu_page' ) );
-
-		$theme_name_sample_admin_sub_menu2 = new Admin_Sub_Menu( Initial_Value::sample_sub_menu_page2() );
-		add_action( 'admin_menu', array( $theme_name_sample_admin_sub_menu2, 'add_admin_sub_menu_page' ) );
 	}
 }
 

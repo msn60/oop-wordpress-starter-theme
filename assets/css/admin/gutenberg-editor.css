@@ -1,0 +1,4 @@
+/*If you want to see your front-end style inside gutenberg editor style, you can use from this file*/
+.wp-block-heading h2 {
+    font-family: tahoma, sans-serif !important;
+}
