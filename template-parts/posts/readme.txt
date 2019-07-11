@@ -1,1 +1,0 @@
-This file have been only used for applying this directory in github.

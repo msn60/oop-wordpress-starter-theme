@@ -24,10 +24,10 @@ get_template_part( 'template-parts/header/header', 'menu' );
  * post types and that's why that I have used from separated files.
  * */
 if ( 'msn-events-sample' == get_post_type() ) {
-	get_template_part( 'template-parts/archives/main-events-archive-page' );
+	get_template_part( 'template-parts/archives/events-archive-page' );
 
 } elseif ( 'msn-programs-sample' == get_post_type() ) {
-	get_template_part( 'template-parts/archives/main-programs-archive-page' );
+	get_template_part( 'template-parts/archives/programs-archive-page' );
 
 } else {
 	get_template_part( 'template-parts/archives/main-archive-page' );
