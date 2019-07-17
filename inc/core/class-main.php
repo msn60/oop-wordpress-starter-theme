@@ -127,7 +127,10 @@ class Main {
 		 * Note: the first-loaded translation file overrides any following ones if the same translation is present.
 		 */
 
-		// Loads wp-content/languages/themes/storefront-it_IT.mo.
+		// Loads wp-content/themes/child-theme-name/languages/theme_name_fa_IR.mo.
+		load_theme_textdomain( 'theme-name-name-space', get_stylesheet_directory() . '/languages' );
+
+		// Loads wp-content/themes/msn-oop-starter/languages/heme_name_fa_IR.mo.
 		load_theme_textdomain( 'theme-name-name-space', THEME_NAME_LANG );
 
 		/*
@@ -252,12 +255,44 @@ class Main {
 		 *
 		 * @link: https://richtabor.com/add-wordpress-theme-styles-to-gutenberg/
 		 */
-		add_editor_style( THEME_NAME_CSS.'admin/gutenberg-editor.css' );
+		add_editor_style( THEME_NAME_CSS . 'admin/gutenberg-editor.css' );
 
 		/**
 		 * Enqueue editor styles.
 		 */
 		//add_editor_style( array( 'assets/css/base/gutenberg-editor.css', $this->google_fonts() ) );
+
+		// Editor color palette for gutenberg.
+		add_theme_support(
+			'editor-color-palette',
+			array(
+				array(
+					'name'  => __( 'Primary', $this->theme_name ),
+					'slug'  => 'primary',
+					'color' => '#bb0000',
+				),
+				array(
+					'name'  => __( 'Secondary', $this->theme_name ),
+					'slug'  => 'secondary',
+					'color' => '#00bb00',
+				),
+				array(
+					'name'  => __( 'Dark Gray', $this->theme_name ),
+					'slug'  => 'dark-gray',
+					'color' => '#111',
+				),
+				array(
+					'name'  => __( 'Light Gray', $this->theme_name  ),
+					'slug'  => 'light-gray',
+					'color' => '#767676',
+				),
+				array(
+					'name'  => __( 'White', $this->theme_name  ),
+					'slug'  => 'white',
+					'color' => '#FFF',
+				),
+			)
+		);
 
 		/**
 		 * Add support for responsive embedded content.
