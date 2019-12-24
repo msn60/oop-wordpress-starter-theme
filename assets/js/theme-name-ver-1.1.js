@@ -1,4 +1,4 @@
-/*Public JS - Version 1*/
+/*Public JS - Version 1.1*/
 (function ($) {
     $(document).ready(function () {
         var $window = $(window);

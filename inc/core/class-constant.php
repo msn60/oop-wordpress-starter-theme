@@ -128,6 +128,22 @@ class Constant {
 			define( 'THEME_NAME_JS_VERSION', '1.1' );
 		}
 
+		/**
+		 * THEME_NAME_VERSION constant.
+		 * It is used to specify theme version for development purpose.
+		 */
+		if ( ! defined( 'THEME_NAME_VERSION' ) ) {
+			define( 'THEME_NAME_VERSION', '1.0.2' );
+		}
+
+		/**
+		 * THEME_NAME constant.
+		 * It is used to specify the name of theme inside theme directory.
+		 */
+		if ( ! defined( 'MSN_THEME_NAME' ) ) {
+			define( 'MSN_THEME_NAME', 'msn-oop-starter' );
+		}
+
 		/*In future maybe I want to add constants for separated upload directory inside plugin directory*/
 	}
 

@@ -16,8 +16,9 @@ namespace Theme_Name_Name_Space\Inc\Core;
 /*
  * Define your namespaces here by use keyword
  * */
-use Theme_Name_Name_Space\Inc\Admin\Admin_Menu;
-use Theme_Name_Name_Space\Inc\Admin\Admin_Sub_Menu;
+use Theme_Name_Name_Space\Inc\Admin\{
+	Admin_Menu, Admin_Sub_Menu
+};
 use Theme_Name_Name_Space\Inc\Config\Initial_Value;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -34,6 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Main {
 
+	use Initial_Value;
 	/**
 	 * The unique identifier of this theme.
 	 *
@@ -61,18 +63,29 @@ class Main {
 	 * @since  1.0.1
 	 */
 	public function __construct() {
-		if ( defined( 'THEME_NAME_VERSION' ) ) {
-			$this->version = THEME_NAME_VERSION;
+		if ( defined( THEME_NAME_VERSION ) ) {
+			$this->theme_version = THEME_NAME_VERSION;
 		} else {
-			$this->version = '1.0.1';
+			$this->theme_version = '1.0.1';
 		}
-		$this->theme_name = 'theme-name';
+		if ( defined( 'MSN_THEME_NAME' ) ) {
+			$this->theme_version = MSN_THEME_NAME;
+		} else {
+			$this->theme_version = 'msn-oop-starter';
+		}
 		add_action( 'after_setup_theme', array( $this, 'setup' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'scripts' ), 10 );
 		/*add_action( 'widgets_init', array( $this, 'widgets_init' ) );*/
 		if ( is_admin() ) {
 			$this->set_admin_menu();
+		} else {
+			/*
+			 * Remove extra actions from your WordPress site & some conditions if your are not in admin dashboard
+			 * */
+			$this->remove_extra_actions();
+			add_filter( 'show_admin_bar', '__return_false' );
 		}
+
 	}
 
 	/**
@@ -87,17 +100,73 @@ class Main {
 	 * @see      \Theme_Name_Name_Space\Inc\Config\Initial_Value
 	 */
 	private function set_admin_menu() {
-		$theme_name_sample_admin_menu = new Admin_Menu( Initial_Value::sample_menu_page() );
+		$theme_name_sample_admin_menu = new Admin_Menu( $this->sample_menu_page() );
 		add_action( 'admin_menu', array( $theme_name_sample_admin_menu, 'add_admin_menu_page' ) );
 
-		$theme_name_sample_admin_sub_menu1 = new Admin_Sub_Menu( Initial_Value::sample_sub_menu_page1() );
+		$theme_name_sample_admin_sub_menu1 = new Admin_Sub_Menu( $this->sample_sub_menu_page1() );
 		add_action( 'admin_menu', array( $theme_name_sample_admin_sub_menu1, 'add_admin_sub_menu_page' ) );
 
-		$theme_name_sample_admin_sub_menu2 = new Admin_Sub_Menu( Initial_Value::sample_sub_menu_page2() );
+		$theme_name_sample_admin_sub_menu2 = new Admin_Sub_Menu( $this->sample_sub_menu_page2() );
 		add_action( 'admin_menu', array( $theme_name_sample_admin_sub_menu2, 'add_admin_sub_menu_page' ) );
 	}
 
 	/**
+	 * Remove extra actions.
+	 * This method removes extra add_actions that you want to avoid from executing.
+	 *
+	 * @access public
+	 * @since  1.0.1
+	 */
+	public function remove_extra_actions() {
+		/*
+		 * Display the links to the extra feeds such as category feeds
+		 * */
+		remove_action( 'wp_head', 'feed_links_extra', 3 );
+		/*
+		 * Display the links to the general feeds: Post and Comment Feed
+		 * */
+		remove_action( 'wp_head', 'feed_links', 2 );
+		/*
+		 * Display the link to the Really Simple Discovery service endpoint, EditURI link
+		 * */
+		remove_action( 'wp_head', 'rsd_link' );
+		/*
+		 * Display the link to the Windows Live Writer manifest file.
+		 * */
+		remove_action( 'wp_head', 'wlwmanifest_link' );
+		/*
+		 * index link
+		 * */
+		remove_action( 'wp_head', 'index_rel_link' );
+		/*
+		 * prev link
+		 * */
+		remove_action( 'wp_head', 'parent_post_rel_link', 10 );
+		/*
+		 * start link
+		 * */
+		remove_action( 'wp_head', 'start_post_rel_link', 10 );
+		/*
+		 * Display relational links for the posts adjacent to the current post.
+		 * */
+		remove_action( 'wp_head', 'adjacent_posts_rel_link', 10 );
+		/*
+		 * Display the XHTML generator that is generated on the wp_head hook, WP version
+		 * */
+		remove_action( 'wp_head', 'wp_generator' );
+		/*
+		 * remove emojis
+		 * */
+		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+		remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+		remove_action( 'wp_print_styles', 'print_emoji_styles' );
+		remove_action( 'admin_print_styles', 'print_emoji_styles' );
+	}
+
+	/**
+	 * theme_name getter method
+	 *
+	 * @access public
 	 * @return string
 	 */
 	public function get_theme_name(): string {
@@ -105,10 +174,39 @@ class Main {
 	}
 
 	/**
+	 * theme_name setter method
+	 *
 	 * @param string $theme_name
+	 *
+	 * @access public
+	 * @return void
 	 */
 	public function set_theme_name( string $theme_name ): void {
 		$this->theme_name = $theme_name;
+	}
+
+	/**
+	 * theme_version getter method
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 */
+	public function get_theme_version(): string {
+		return $this->theme_version;
+	}
+
+	/**
+	 * theme_version setter method
+	 *
+	 * @param string $theme_name
+	 *
+	 * @access public
+	 * @return void
+	 *
+	 */
+	public function set_theme_version( string $theme_version ): void {
+		$this->theme_version = $theme_version;
 	}
 
 	/**
@@ -282,12 +380,12 @@ class Main {
 					'color' => '#111',
 				),
 				array(
-					'name'  => __( 'Light Gray', $this->theme_name  ),
+					'name'  => __( 'Light Gray', $this->theme_name ),
 					'slug'  => 'light-gray',
 					'color' => '#767676',
 				),
 				array(
-					'name'  => __( 'White', $this->theme_name  ),
+					'name'  => __( 'White', $this->theme_name ),
 					'slug'  => 'white',
 					'color' => '#FFF',
 				),
@@ -427,59 +525,6 @@ class Main {
 		);
 
 
-	}
-
-	/**
-	 * Remove extra actions.
-	 * This method removes extra add_actions that you want to avoid from executing.
-	 *
-	 * @access public
-	 * @since  1.0.1
-	 */
-	public function remove_extra_actions() {
-		/*
-		 * Display the links to the extra feeds such as category feeds
-		 * */
-		remove_action( 'wp_head', 'feed_links_extra', 3 );
-		/*
-		 * Display the links to the general feeds: Post and Comment Feed
-		 * */
-		remove_action( 'wp_head', 'feed_links', 2 );
-		/*
-		 * Display the link to the Really Simple Discovery service endpoint, EditURI link
-		 * */
-		remove_action( 'wp_head', 'rsd_link' );
-		/*
-		 * Display the link to the Windows Live Writer manifest file.
-		 * */
-		remove_action( 'wp_head', 'wlwmanifest_link' );
-		/*
-		 * index link
-		 * */
-		remove_action( 'wp_head', 'index_rel_link' );
-		/*
-		 * prev link
-		 * */
-		remove_action( 'wp_head', 'parent_post_rel_link', 10 );
-		/*
-		 * start link
-		 * */
-		remove_action( 'wp_head', 'start_post_rel_link', 10 );
-		/*
-		 * Display relational links for the posts adjacent to the current post.
-		 * */
-		remove_action( 'wp_head', 'adjacent_posts_rel_link', 10 );
-		/*
-		 * Display the XHTML generator that is generated on the wp_head hook, WP version
-		 * */
-		remove_action( 'wp_head', 'wp_generator' );
-		/*
-		 * remove emojis
-		 * */
-		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
-		remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
-		remove_action( 'wp_print_styles', 'print_emoji_styles' );
-		remove_action( 'admin_print_styles', 'print_emoji_styles' );
 	}
 }
 

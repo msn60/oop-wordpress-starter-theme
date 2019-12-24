@@ -103,14 +103,14 @@ class Admin_Menu {
 	 *
 	 * @param array $initial_value Initial value to pass to add_menu_page function.
 	 */
-	public function __construct( $initial_value ) {
-		$this->page_title        = $initial_value['page_title'];
-		$this->menu_title        = $initial_value['menu_title'];
-		$this->capability        = $initial_value['capability'];
-		$this->menu_slug         = $initial_value['menu_slug'];
-		$this->callable_function = $initial_value['callable_function'];
-		$this->icon_url          = $initial_value['icon_url'];
-		$this->position          = $initial_value['position'];
+	public function __construct( $initial_values ) {
+		$this->page_title        = $initial_values['page_title'];
+		$this->menu_title        = $initial_values['menu_title'];
+		$this->capability        = $initial_values['capability'];
+		$this->menu_slug         = $initial_values['menu_slug'];
+		$this->callable_function = $initial_values['callable_function'];
+		$this->icon_url          = $initial_values['icon_url'];
+		$this->position          = $initial_values['position'];
 	}
 
 	/**

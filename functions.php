@@ -11,8 +11,10 @@
  * @link       https://wpwebmaster.ir
  */
 
-use Theme_Name_Name_Space\Inc\Core\Constant;
-use Theme_Name_Name_Space\Inc\Core\Main;
+use Theme_Name_Name_Space\Inc\Core\{
+	Constant, Main
+};
+use Theme_Name_Name_Space\Inc\Admin\Admin_Menu;
 
 $autoloader_path = 'inc/class-autoloader.php';
 /**
@@ -29,14 +31,6 @@ Constant::define_constant();
  * Using Main class to prepare your theme
  * */
 $msn_theme_name_name_space_object = new Main();
-
-/*
- * Remove extra actions from your WordPress site & some conditions if your are not in admin dashboard
- * */
-if ( ! is_admin() ) {
-	$msn_theme_name_name_space_object->remove_extra_actions();
-	add_filter( 'show_admin_bar', '__return_false' );
-}
 
 
 

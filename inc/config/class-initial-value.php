@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package    Theme_Name_Name_Space\Inc\Config
  * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  */
-class Initial_Value {
+trait Initial_Value {
 
 	/**
 	 * Initial values to create admin menu page.
@@ -37,7 +37,7 @@ class Initial_Value {
 	 * @see    Inc/Admin/Admin_Menu
 	 * @return array It returns all of arguments that add_menu_page function needs.
 	 */
-	public static function sample_menu_page() {
+	public function sample_menu_page() {
 		$initial_value = [
 			'page_title'        => 'Msn Theme Option',
 			'menu_title'        => 'Theme Option',
@@ -59,7 +59,7 @@ class Initial_Value {
 	 * @see    Inc/Admin/Admin_Sub_Menu
 	 * @return array It returns all of arguments that add_submenu_page function needs.
 	 */
-	public static function sample_sub_menu_page1() {
+	public function sample_sub_menu_page1() {
 		$initial_value = [
 			'parent-slug'       => 'theme-name-option-page-url',
 			'page_title'        => 'Theme Submenu 1',

@@ -14,6 +14,8 @@
 
 namespace Theme_Name_Name_Space\Inc\Admin;
 
+use Theme_Name_Name_Space\Inc\Config\Initial_Value;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -30,6 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Admin_Sub_Menu {
 
+	use Initial_Value;
 	/**
 	 * Define parent_slug property in Admin_Sub_Menu class.
 	 * This property use to pass to add_submenu_page as an argument.
