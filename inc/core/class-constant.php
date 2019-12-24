@@ -118,14 +118,14 @@ class Constant {
 		 * You can use from this constant to apply on main CSS file when you have changed it.
 		 */
 		if ( ! defined( 'THEME_NAME_CSS_VERSION' ) ) {
-			define( 'THEME_NAME_CSS_VERSION', 1 );
+			define( 'THEME_NAME_CSS_VERSION', '1.1' );
 		}
 		/**
 		 * THEME_NAME_JS_VERSION constant.
 		 * You can use from this constant to apply on main JS file when you have changed it.
 		 */
 		if ( ! defined( 'THEME_NAME_JS_VERSION' ) ) {
-			define( 'THEME_NAME_JS_VERSION', 1 );
+			define( 'THEME_NAME_JS_VERSION', '1.1' );
 		}
 
 		/*In future maybe I want to add constants for separated upload directory inside plugin directory*/
