@@ -17,9 +17,11 @@ namespace Theme_Name_Name_Space\Inc\Core;
  * Define your namespaces here by use keyword
  * */
 use Theme_Name_Name_Space\Inc\Admin\{
-	Admin_Menu, Admin_Sub_Menu
+	Admin_Menu, Admin_Sub_Menu, Meta_box
 };
-use Theme_Name_Name_Space\Inc\Config\Initial_Value;
+use Theme_Name_Name_Space\Inc\Config\{
+	Initial_Value, Meta_Box1_Config, Meta_Box2_Config
+};
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -36,6 +38,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Main {
 
 	use Initial_Value;
+	use Meta_Box1_Config;
+	use Meta_Box2_Config;
 	/**
 	 * The unique identifier of this theme.
 	 *
@@ -78,12 +82,18 @@ class Main {
 		/*add_action( 'widgets_init', array( $this, 'widgets_init' ) );*/
 		if ( is_admin() ) {
 			$this->set_admin_menu();
+			/*
+			 * set meta boxes here
+			 * */
+			add_action( 'load-post.php', array( $this,'set_meta_boxes') );
+			add_action( 'load-post-new.php', array( $this,'set_meta_boxes') );
 		} else {
 			/*
 			 * Remove extra actions from your WordPress site & some conditions if your are not in admin dashboard
 			 * */
 			$this->remove_extra_actions();
-			add_filter( 'show_admin_bar', '__return_false' );
+			//I have disabled it for development phase
+			//add_filter( 'show_admin_bar', '__return_false' );
 		}
 
 	}
@@ -525,6 +535,12 @@ class Main {
 		);
 
 
+	}
+
+	public function set_meta_boxes() {
+
+		$meta_box_obj1 = new Meta_box($this->sample_meta_box1());
+		$meta_box_obj2 = new Meta_box($this->sample_meta_box2());
 	}
 }
 

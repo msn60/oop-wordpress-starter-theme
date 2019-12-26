@@ -33,14 +33,13 @@ trait Initial_Value {
 	 * Initial values to create admin menu page.
 	 *
 	 * @access public
-	 * @static
 	 * @see    Inc/Admin/Admin_Menu
 	 * @return array It returns all of arguments that add_menu_page function needs.
 	 */
 	public function sample_menu_page() {
 		$initial_value = [
-			'page_title'        => 'Msn Theme Option',
-			'menu_title'        => 'Theme Option',
+			'page_title'        => __( 'Msn Theme Option', 'msn-starter-theme' ),
+			'menu_title'        => __( 'Theme Option', 'msn-starter-theme' ),
 			'capability'        => 'manage_options',
 			'menu_slug'         => 'theme-name-option-page-url',
 			'callable_function' => 'management_panel_handler',
@@ -55,15 +54,14 @@ trait Initial_Value {
 	 * Initial values to create admin submenu page (submenu1).
 	 *
 	 * @access public
-	 * @static
 	 * @see    Inc/Admin/Admin_Sub_Menu
 	 * @return array It returns all of arguments that add_submenu_page function needs.
 	 */
 	public function sample_sub_menu_page1() {
 		$initial_value = [
 			'parent-slug'       => 'theme-name-option-page-url',
-			'page_title'        => 'Theme Submenu 1',
-			'menu_title'        => 'Theme Submenu 1',
+			'page_title'        => __( 'Theme Submenu 1', 'msn-starter-theme' ),
+			'menu_title'        => __( 'Theme Submenu 1', 'msn-starter-theme' ),
 			'capability'        => 'manage_options',
 			'menu_slug'         => 'theme-name-option-page-url',
 			'callable_function' => 'sub_menu1_panel_handler',
@@ -80,11 +78,11 @@ trait Initial_Value {
 	 * @see    Includes/Admin/Admin_Sub_Menu
 	 * @return array It returns all of arguments that add_submenu_page function needs.
 	 */
-	public static function sample_sub_menu_page2() {
+	public function sample_sub_menu_page2() {
 		$initial_value = [
 			'parent-slug'       => 'theme-name-option-page-url',
-			'page_title'        => 'Theme Submenu 2',
-			'menu_title'        => 'Theme Submenu 2',
+			'page_title'        => __( 'Theme Submenu 2', 'msn-starter-theme' ),
+			'menu_title'        => __( 'Theme Submenu 2', 'msn-starter-theme' ),
 			'capability'        => 'manage_options',
 			'menu_slug'         => 'theme-name-option-page-url-2',
 			'callable_function' => 'sub_menu2_panel_handler',
@@ -92,5 +90,6 @@ trait Initial_Value {
 
 		return $initial_value;
 	}
+
 
 }

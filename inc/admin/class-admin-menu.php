@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * If you want create an admin page inside admin panel of WordPress,
  * you can use from this class.
  *
- * @package    Plugin_Name_Name_Space\Includes\Admin
+ * @package    Plugin_Name_Name_Space\Inc\Admin
  * @author     Your_Name <youremail@nomail.com>
  * @see        wp-admin/includes/plugin.php
  * @see        https://developer.wordpress.org/reference/functions/add_menu_page/
