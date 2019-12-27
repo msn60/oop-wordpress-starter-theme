@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * This class handle all of initial functions or methods
  * that you need alongside of your plugin.
  *
- * @package    Plugin_Name_Name_Space\Includes\Functions
+ * @package    Plugin_Name_Name_Space\Inc\Functions
  * @author     Your_Name <youremail@nomail.com>
  */
 class Init_Functions {

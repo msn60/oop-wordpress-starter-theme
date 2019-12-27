@@ -23,6 +23,8 @@ use Theme_Name_Name_Space\Inc\Config\{
 	Initial_Value, Meta_Box1_Config, Meta_Box2_Config
 };
 
+use Theme_Name_Name_Space\Inc\Functions\Ajax;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -85,8 +87,8 @@ class Main {
 			/*
 			 * set meta boxes here
 			 * */
-			add_action( 'load-post.php', array( $this,'set_meta_boxes') );
-			add_action( 'load-post-new.php', array( $this,'set_meta_boxes') );
+			add_action( 'load-post.php', array( $this, 'set_meta_boxes' ) );
+			add_action( 'load-post-new.php', array( $this, 'set_meta_boxes' ) );
 		} else {
 			/*
 			 * Remove extra actions from your WordPress site & some conditions if your are not in admin dashboard
@@ -95,6 +97,7 @@ class Main {
 			//I have disabled it for development phase
 			//add_filter( 'show_admin_bar', '__return_false' );
 		}
+		$this->handle_ajax_call();
 
 	}
 
@@ -533,14 +536,23 @@ class Main {
 			null,
 			true
 		);
+		/*
+		 * localize script to handle ajax call
+		 * */
+		wp_localize_script( $this->theme_name . '-script', 'data', $this->sample_ajax_data1()	);
 
 
 	}
 
 	public function set_meta_boxes() {
 
-		$meta_box_obj1 = new Meta_box($this->sample_meta_box1());
-		$meta_box_obj2 = new Meta_box($this->sample_meta_box2());
+		$meta_box_obj1 = new Meta_box( $this->sample_meta_box1() );
+		$meta_box_obj2 = new Meta_box( $this->sample_meta_box2() );
+	}
+
+	public function handle_ajax_call(  ) {
+
+		$ajax_call_obj = new Ajax();
 	}
 }
 

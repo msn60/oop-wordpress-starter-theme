@@ -33,6 +33,18 @@
                 <a href="<?php the_permalink(); ?>"><p class="msn-btn">Continue Reading...</p></a>
             </div>
         </div>
+        <!-- Start of sample section for ajax call -->
+        <?php
+            $post_meta1 = (int)get_post_meta(get_the_ID(),'_msn_oop_starter_meta_box_key_1',true);
+        ?>
+        <div class="top-left-social"><a href="#" >Test for: sample_ajax_call_1</a></div>
+        <div class="msn-sample-vote" data-pid="<?php echo get_the_ID(); ?>">
+            <a href="#" >Test for: sample_ajax_call_2</a>
+            <div class="msn-sample-count"  >
+                <?php echo $post_meta1;?>
+            </div>
+        </div>
+        <!-- End of sample section for ajax call -->
 		<?php echo '<hr>'; ?>
 	<?php endwhile; ?>
     <!-- end of the loop -->

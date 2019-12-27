@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * This class contains functions that help you in general tasks like rendering
  * template, convert to numbers and words and so on.
  *
- * @package    Plugin_Name_Name_Space\Includes\Functions
+ * @package    Plugin_Name_Name_Space\Inc\Functions
  * @author     Your_Name <youremail@nomail.com>
  */
 class Utility {
