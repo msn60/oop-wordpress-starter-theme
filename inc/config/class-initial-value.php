@@ -91,22 +91,4 @@ trait Initial_Value {
 		return $initial_value;
 	}
 
-	/**
-	 * Initial values for ajax call
-	 *
-	 * @access public
-	 * @static
-	 * @return array It returns all of arguments that needs for wp_localize_script method
-	 */
-	public function sample_ajax_data1() {
-		$initial_value = [
-			'ajax_url'        => admin_url( 'admin-ajax.php' ),
-			'ajax_nonce'      => wp_create_nonce( 'sample_ajax_nonce' ),
-			'msn_ajax_sample' => 'Ajax sample for OOP theme starter',
-		];
-
-		return $initial_value;
-	}
-
-
 }

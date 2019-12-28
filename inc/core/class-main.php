@@ -23,7 +23,9 @@ use Theme_Name_Name_Space\Inc\Config\{
 	Initial_Value, Meta_Box1_Config, Meta_Box2_Config
 };
 
-use Theme_Name_Name_Space\Inc\Functions\Ajax;
+use Theme_Name_Name_Space\Inc\Parts\{
+	Sample_Ajax_1, Sample_Ajax_2
+};
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -69,6 +71,13 @@ class Main {
 	 * @since  1.0.1
 	 */
 	public function __construct() {
+
+		$this->register();
+		$this->handle_ajax_call();
+
+	}
+
+	public function register() {
 		if ( defined( THEME_NAME_VERSION ) ) {
 			$this->theme_version = THEME_NAME_VERSION;
 		} else {
@@ -91,14 +100,12 @@ class Main {
 			add_action( 'load-post-new.php', array( $this, 'set_meta_boxes' ) );
 		} else {
 			/*
-			 * Remove extra actions from your WordPress site & some conditions if your are not in admin dashboard
-			 * */
+						 * Remove extra actions from your WordPress site & some conditions if your are not in admin dashboard
+						 * */
 			$this->remove_extra_actions();
 			//I have disabled it for development phase
 			//add_filter( 'show_admin_bar', '__return_false' );
 		}
-		$this->handle_ajax_call();
-
 	}
 
 	/**
@@ -175,6 +182,13 @@ class Main {
 		remove_action( 'wp_print_styles', 'print_emoji_styles' );
 		remove_action( 'admin_print_styles', 'print_emoji_styles' );
 	}
+
+	public function handle_ajax_call() {
+
+		$ajax_call_obj_1 = new Sample_Ajax_1('sample_ajax_call_1');
+		$ajax_call_obj_2 = new Sample_Ajax_2('sample_ajax_call_2');
+	}
+
 
 	/**
 	 * theme_name getter method
@@ -512,7 +526,7 @@ class Main {
 		 */
 
 		wp_enqueue_style(
-			$this->theme_name . '-style',
+			MSN_THEME_NAME . '-style',
 			THEME_NAME_CSS . 'theme-name-ver-' . THEME_NAME_CSS_VERSION . '.css',
 			array(),
 			null,
@@ -530,7 +544,7 @@ class Main {
 		 * With this function, you can add your js file for front-end of your website
 		 */
 		wp_enqueue_script(
-			$this->theme_name . '-script',
+			MSN_THEME_NAME . '-script',
 			THEME_NAME_JS . 'theme-name-ver-' . THEME_NAME_JS_VERSION . '.js',
 			array( 'jquery' ),
 			null,
@@ -539,7 +553,7 @@ class Main {
 		/*
 		 * localize script to handle ajax call
 		 * */
-		wp_localize_script( $this->theme_name . '-script', 'data', $this->sample_ajax_data1()	);
+		//wp_localize_script( MSN_THEME_NAME. '-script', 'data', $this->sample_ajax_data1() );
 
 
 	}
@@ -548,11 +562,6 @@ class Main {
 
 		$meta_box_obj1 = new Meta_box( $this->sample_meta_box1() );
 		$meta_box_obj2 = new Meta_box( $this->sample_meta_box2() );
-	}
-
-	public function handle_ajax_call(  ) {
-
-		$ajax_call_obj = new Ajax();
 	}
 }
 
