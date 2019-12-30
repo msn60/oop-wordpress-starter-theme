@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package    Plugin_Name_Name_Space\Inc\Functions
  * @author     Your_Name <youremail@nomail.com>
  */
-class Utility {
+trait Utility {
 
 	/**
 	 * Method load_template in Utility Class
@@ -70,7 +70,7 @@ class Utility {
 	 * @access  public
 	 * @static
 	 */
-	public static function is_admin_login() {
+	public function is_admin_login() {
 		return is_user_logged_in() && current_user_can( 'manage_options' );
 	}
 
@@ -86,7 +86,7 @@ class Utility {
 	 *
 	 * @return string It returns absolute path.
 	 */
-	public static function create_url( $url = '/' ) {
+	public function create_url( $url = '/' ) {
 		return get_site_url() . $url;
 
 	}
@@ -104,7 +104,7 @@ class Utility {
 	 *
 	 * @return string Returns a string containing the requested number of cryptographically secure random bytes.
 	 */
-	public static function generate_random_code( $length = 16 ) {
+	public  function generate_random_code( $length = 16 ) {
 		return bin2hex( random_bytes( $length ) );
 	}
 
@@ -121,10 +121,10 @@ class Utility {
 	 *
 	 * @return string A formatted version of number.
 	 */
-	public static function format_amount_by_3_digits( $amount ) {
+	public function format_amount_by_3_digits( $amount ) {
 		$amount = number_format( $amount );
 
-		return self::convert_to_persian_number( $amount );
+		return $this->convert_to_persian_number( $amount );
 	}
 
 	/**
@@ -140,7 +140,7 @@ class Utility {
 	 *
 	 * @return string A formatted version of number.
 	 */
-	public static function convert_to_persian_number( $number ) {
+	public function convert_to_persian_number( $number ) {
 		$persian_numbers = [ '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹', '۰' ];
 		$english_numbers = [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' ];
 
@@ -158,7 +158,7 @@ class Utility {
 	 *
 	 * @return  int/FALSE Returns the long integer or FALSE if ip_address is invalid.
 	 */
-	public static function convert_ip_to_long() {
+	public function convert_ip_to_long() {
 		$remote_address = filter_var( wp_unslash( $_SERVER['REMOTE_ADDR'] ), FILTER_SANITIZE_STRING );
 		if ( '::1' === $remote_address ) {
 			$remote_address = '127.0.0.1';
@@ -177,12 +177,20 @@ class Utility {
 	 *
 	 * @return  string Returns IP address of visitor.
 	 */
-	public static function get_visitor_ip_address() {
+	public function get_visitor_ip_address() {
 		$remote_address = filter_var( wp_unslash( $_SERVER['REMOTE_ADDR'] ), FILTER_SANITIZE_STRING );
 		if ( '::1' === $remote_address ) {
 			$remote_address = '127.0.0.1';
 		}
 
 		return $remote_address;
+	}
+
+	public function show_only_login_users($content){
+	    if ( is_user_logged_in()){
+	        return $content;
+	    }
+	    $return_message =  __( 'This part only shows for login users!!!', 'msn-starter-theme' );
+	    return "<p>{$return_message}</p>";
 	}
 }

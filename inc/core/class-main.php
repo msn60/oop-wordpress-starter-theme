@@ -27,6 +27,8 @@ use Theme_Name_Name_Space\Inc\Parts\{
 	Sample_Ajax_1, Sample_Ajax_2
 };
 
+use Theme_Name_Name_Space\Inc\Functions\Utility;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -44,6 +46,7 @@ class Main {
 	use Initial_Value;
 	use Meta_Box1_Config;
 	use Meta_Box2_Config;
+	use Utility;
 	/**
 	 * The unique identifier of this theme.
 	 *
@@ -100,13 +103,18 @@ class Main {
 			add_action( 'load-post-new.php', array( $this, 'set_meta_boxes' ) );
 		} else {
 			/*
-						 * Remove extra actions from your WordPress site & some conditions if your are not in admin dashboard
-						 * */
+			 * Remove extra actions from your WordPress site & some conditions if your are not in admin dashboard
+			 * */
 			$this->remove_extra_actions();
 			//I have disabled it for development phase
 			//add_filter( 'show_admin_bar', '__return_false' );
 		}
+		/*
+		 * show content only for login users (optional)
+		 * */
+		add_filter( 'Theme_name_name_space_only_show_for_login_users', [ $this, 'show_only_login_users' ] );
 	}
+
 
 	/**
 	 * Define admin menu for your theme
@@ -185,8 +193,8 @@ class Main {
 
 	public function handle_ajax_call() {
 
-		$ajax_call_obj_1 = new Sample_Ajax_1('sample_ajax_call_1');
-		$ajax_call_obj_2 = new Sample_Ajax_2('sample_ajax_call_2');
+		$ajax_call_obj_1 = new Sample_Ajax_1( 'sample_ajax_call_1' );
+		$ajax_call_obj_2 = new Sample_Ajax_2( 'sample_ajax_call_2' );
 	}
 
 

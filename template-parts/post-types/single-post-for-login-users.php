@@ -21,9 +21,13 @@
 
 <div class="msn-container">
 
+    <?php
 
+    $content = apply_filters('Theme_name_name_space_only_show_for_login_users',get_the_content());
+
+    ?>
     <div class="msn-generic-content">
-		<?php the_content(); ?>
+		<?php echo $content ?>
     </div>
     <hr>
 
@@ -43,7 +47,7 @@
     <hr>
     <!-- Show comments -->
     <?php get_template_part('template-parts/comments/comment','popup-link' ) ?>
-    <!-- Show social -->
+    <!-- Show social links sharing -->
     <?php get_template_part('template-parts/other/social-links-share' ) ?>
 
 </div>
