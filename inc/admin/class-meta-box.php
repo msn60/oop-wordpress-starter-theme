@@ -5,7 +5,7 @@
  * This file contains Meta_box  class. If you want create a meta box
  * inside admin panel of WordPress, you can use from this class.
  *
- * @package    Theme_Name_Name_Space\Inc\Admin
+ * @package    Theme_Name_Name_Space
  * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  * @license    https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link       https://wpwebmaster.ir
@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * This file contains Meta_box  class. If you want create a meta box
  * inside admin panel of WordPress, you can use from this class.
  *
- * @package    Plugin_Name_Name_Space\Inc\Admin
+ * @package    Plugin_Name_Name_Space
  * @author     Your_Name <youremail@nomail.com>
  * @see        https://developer.wordpress.org/reference/functions/add_meta_box/
  * @see        https://developer.wordpress.org/reference/functions/get_post_meta/

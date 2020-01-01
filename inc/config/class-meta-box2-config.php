@@ -4,7 +4,7 @@
  *
  * Methods and settings which will need for meta box2
  *
- * @package    Theme_Name_Name_Space\Inc\Config
+ * @package    Theme_Name_Name_Space
  * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  * @license    https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link       https://wpwebmaster.ir
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class Meta_Box2_Config.
  * Methods and settings which will need for meta box2
  *
- * @package    Theme_Name_Name_Space\Inc\Config
+ * @package    Theme_Name_Name_Space
  * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  */
 trait Meta_Box2_Config {

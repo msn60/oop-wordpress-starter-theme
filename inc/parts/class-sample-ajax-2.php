@@ -4,7 +4,7 @@
  *
  * This file contains a class that handle all of Sample_Ajax_2 call in your site
  *
- * @package    Theme_Name_Name_Space\Inc\Parts
+ * @package    Theme_Name_Name_Space
  * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  * @license    https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link       https://wpwebmaster.ir
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class Sample_Ajax_2.
  * This file contains a class that handle all of Sample_Ajax_2 call in your site
  *
- * @package    Plugin_Name_Name_Space\Inc\Functions
+ * @package    Plugin_Name_Name_Space
  * @author     Your_Name <youremail@nomail.com>
  */
 class Sample_Ajax_2 extends Ajax {

@@ -5,7 +5,7 @@
  * This file contains jdf library to do conversion between English and Persian Time.
  * I have changed it to OOP class based on OOP starter theme
  *
- * @package    Theme_Name_Name_Space\Inc\Functions
+ * @package    Theme_Name_Name_Space
  * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  * @license    https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link       https://wpwebmaster.ir

@@ -5,7 +5,7 @@
  * This file contains Constant class which defines needed constants to ease
  * your theme development processes.
  *
- * @package    Theme_Name_Name_Space\Includes\Init
+ * @package    Theme_Name_Name_Space
  * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  * @license    https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link       https://wpwebmaster.ir
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * This class defines needed constants that you will use in theme development.
  *
- * @package    Theme_Name_Name_Space\Inc\Core
+ * @package    Theme_Name_Name_Space
  * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  */
 class Constant {

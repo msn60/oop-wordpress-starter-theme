@@ -6,7 +6,7 @@
  * to initial value to start your theme or need them for each time that WordPress
  * run your theme, you can use from this class.
  *
- * @package    Theme_Name_Name_Space\Inc\Config
+ * @package    Theme_Name_Name_Space
  * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  * @license    https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link       https://wpwebmaster.ir
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * If you need to initial value to start your theme or need them for
  * each time that WordPress run your theme, you can use from this class.
  *
- * @package    Theme_Name_Name_Space\Inc\Config
+ * @package    Theme_Name_Name_Space
  * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  */
 trait Initial_Value {

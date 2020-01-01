@@ -5,7 +5,7 @@
  * This file contains a class that handle all of initial functions or methods
  * that you need alongside of your theme.
  *
- * @package    Theme_Name_Name_Space\Inc\Functions
+ * @package    Theme_Name_Name_Space
  * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  * @license    https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link       https://wpwebmaster.ir
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * This class handle all of initial functions or methods
  * that you need alongside of your plugin.
  *
- * @package    Plugin_Name_Name_Space\Inc\Functions
+ * @package    Plugin_Name_Name_Space
  * @author     Your_Name <youremail@nomail.com>
  */
 class Init_Functions {

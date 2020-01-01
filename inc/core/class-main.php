@@ -4,7 +4,7 @@
  *
  * This file contains main class which can manage and handle important tasks in your theme
  *
- * @package    Theme_Name_Name_Space\Inc\Core
+ * @package    Theme_Name_Name_Space
  * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  * @license    https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link       https://wpwebmaster.ir
@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Main class can manage and handle all of tasks that you need in your theme.
  *
- * @package    Theme_Name_Name_Space\Inc\Core
+ * @package    Theme_Name_Name_Space
  * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  */
 class Main {

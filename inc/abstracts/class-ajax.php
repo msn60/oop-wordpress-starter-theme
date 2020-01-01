@@ -4,7 +4,7 @@
  *
  * This file contains an abstract class that specify how you must handle ajax requests in your theme
  *
- * @package    Theme_Name_Name_Space\Inc\Abstracts
+ * @package    Theme_Name_Name_Space
  * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  * @license    https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link       https://wpwebmaster.ir
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * abstract Class Ajax.
  * This file contains an abstract class that specify how you must handle ajax requests in your theme
  *
- * @package    Plugin_Name_Name_Space\Inc\Abstracts
+ * @package    Plugin_Name_Name_Space
  * @author     Your_Name <youremail@nomail.com>
  */
 abstract class Ajax {
