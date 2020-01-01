@@ -104,7 +104,7 @@ trait Utility {
 	 *
 	 * @return string Returns a string containing the requested number of cryptographically secure random bytes.
 	 */
-	public  function generate_random_code( $length = 16 ) {
+	public function generate_random_code( $length = 16 ) {
 		return bin2hex( random_bytes( $length ) );
 	}
 
@@ -186,11 +186,29 @@ trait Utility {
 		return $remote_address;
 	}
 
-	public function show_only_login_users($content){
-	    if ( is_user_logged_in()){
-	        return $content;
-	    }
-	    $return_message =  __( 'This part only shows for login users!!!', 'msn-starter-theme' );
-	    return "<p>{$return_message}</p>";
+	public function show_only_login_users( $content ) {
+		if ( is_user_logged_in() ) {
+			return $content;
+		}
+		$return_message = __( 'This part only shows for login users!!!', 'msn-starter-theme' );
+
+		return "<p>{$return_message}</p>";
+	}
+
+	public function portfolio_page_template( $template ) {
+
+		if ( is_page( 'portfolio' ) ) {
+			$new_template = locate_template( array( 'template-parts/page-templates/sample-page-2.php' ) );
+			if ( '' != $new_template ) {
+				return $new_template;
+			}
+		}
+
+		return $template;
+	}
+
+	public function disable_feeds() {
+
+		wp_die( __( 'No feed available, please visit homepage', 'msn-starter-theme' ) );
 	}
 }

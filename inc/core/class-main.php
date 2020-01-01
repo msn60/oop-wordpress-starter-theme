@@ -115,14 +115,20 @@ class Main {
 		add_filter( 'Theme_name_name_space_only_show_for_login_users', [ $this, 'show_only_login_users' ] );
 		/*
 		 * disable feeds
+		 * by using Utility trait
 		 * */
-		add_action('do_feed', [ $this , 'disable_feeds'], 1);
-		add_action('do_feed_rdf', [ $this , 'disable_feeds'], 1);
-		add_action('do_feed_rss', [ $this , 'disable_feeds'], 1);
-		add_action('do_feed_rss2', [ $this , 'disable_feeds'], 1);
-		add_action('do_feed_atom', [ $this , 'disable_feeds'], 1);
-		add_action('do_feed_rss2_comments', [ $this , 'disable_feeds'], 1);
-		add_action('do_feed_atom_comments', [ $this , 'disable_feeds'], 1);
+		add_action( 'do_feed', [ $this, 'disable_feeds' ], 1 );
+		add_action( 'do_feed_rdf', [ $this, 'disable_feeds' ], 1 );
+		add_action( 'do_feed_rss', [ $this, 'disable_feeds' ], 1 );
+		add_action( 'do_feed_rss2', [ $this, 'disable_feeds' ], 1 );
+		add_action( 'do_feed_atom', [ $this, 'disable_feeds' ], 1 );
+		add_action( 'do_feed_rss2_comments', [ $this, 'disable_feeds' ], 1 );
+		add_action( 'do_feed_atom_comments', [ $this, 'disable_feeds' ], 1 );
+		/*
+		 * Add portfolio page template in subdirectory
+		 * by using Utility trait
+		 * */
+		add_filter( 'template_include', [ $this, 'portfolio_page_template' ], 99 );
 	}
 
 
@@ -582,10 +588,7 @@ class Main {
 		$meta_box_obj2 = new Meta_box( $this->sample_meta_box2() );
 	}
 
-	public function disable_feeds(  ) {
-
-		wp_die( __( 'No feed available, please visit homepage','msn-starter-theme' ) );
-	}
+	
 }
 
 
