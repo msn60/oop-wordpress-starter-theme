@@ -48,6 +48,12 @@ class Main {
 	use Meta_Box2_Config;
 	use Utility;
 	/**
+	 * The unique instance of the theme.
+	 *
+	 * @var Main
+	 */
+	private static $instance;
+	/**
 	 * The unique identifier of this theme.
 	 *
 	 * @since    1.0.1
@@ -55,7 +61,6 @@ class Main {
 	 * @var      string $theme_name The string used to uniquely identify this theme.
 	 */
 	protected $theme_name;
-
 	/**
 	 * The current version of the theme.
 	 *
@@ -70,10 +75,10 @@ class Main {
 	 * This is constructor of Main class and you can use it for hooking your file
 	 * inside it like actions or filters
 	 *
-	 * @access public
+	 * @access private
 	 * @since  1.0.1
 	 */
-	public function __construct() {
+	private function __construct() {
 
 		$this->register();
 		$this->handle_ajax_call();
@@ -130,7 +135,6 @@ class Main {
 		 * */
 		add_filter( 'template_include', [ $this, 'portfolio_page_template' ], 99 );
 	}
-
 
 	/**
 	 * Define admin menu for your theme
@@ -213,6 +217,18 @@ class Main {
 		$ajax_call_obj_2 = new Sample_Ajax_2( 'sample_ajax_call_2' );
 	}
 
+	/**
+	 * Gets an instance of  theme.
+	 *
+	 * @return Main
+	 */
+	public static function get_instance() {
+		if ( null === self::$instance ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
 
 	/**
 	 * theme_name getter method
@@ -588,7 +604,7 @@ class Main {
 		$meta_box_obj2 = new Meta_box( $this->sample_meta_box2() );
 	}
 
-	
+
 }
 
 
