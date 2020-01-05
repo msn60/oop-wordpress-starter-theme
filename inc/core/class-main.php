@@ -72,8 +72,7 @@ class Main {
 
 	/**
 	 * Main constructor.
-	 * This is constructor of Main class and you can use it for hooking your file
-	 * inside it like actions or filters
+	 * This is constructor of Main class
 	 *
 	 * @access private
 	 * @since  1.0.1
@@ -93,6 +92,17 @@ class Main {
 
 	}
 
+	/**
+	 * Init function for Control inversion
+	 * This is init function to use dependency injection and you can use it for hooking your file
+	 * inside it like actions or filters
+	 *
+	 * @access private
+	 * @since  1.0.1
+	 *
+	 * @see    https://carlalexander.ca/designing-class-wordpress-hooks/
+	 * @see    http://farhadnote.ir/articles/2017/11/14/dependency-injection.html
+	 */
 	public static function init() {
 		$self_main = new self();
 		add_action( 'after_setup_theme', array( $self_main, 'setup' ) );
