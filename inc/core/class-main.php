@@ -80,12 +80,6 @@ class Main {
 	 */
 	protected function __construct() {
 
-		$this->register();
-		$this->handle_ajax_call();
-
-	}
-
-	public function register() {
 		if ( defined( THEME_NAME_VERSION ) ) {
 			$this->theme_version = THEME_NAME_VERSION;
 		} else {
@@ -96,44 +90,51 @@ class Main {
 		} else {
 			$this->theme_version = 'msn-oop-starter';
 		}
-		add_action( 'after_setup_theme', array( $this, 'setup' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'scripts' ), 10 );
-		/*add_action( 'widgets_init', array( $this, 'widgets_init' ) );*/
+
+	}
+
+	public static function init() {
+		$self_main = new self();
+		add_action( 'after_setup_theme', array( $self_main, 'setup' ) );
+		add_action( 'wp_enqueue_scripts', array( $self_main, 'scripts' ), 10 );
+		/*add_action( 'widgets_init', array( $self_main, 'widgets_init' ) );*/
 		if ( is_admin() ) {
-			$this->set_admin_menu();
+			$self_main->set_admin_menu();
 			/*
 			 * set meta boxes here
 			 * */
-			add_action( 'load-post.php', array( $this, 'set_meta_boxes' ) );
-			add_action( 'load-post-new.php', array( $this, 'set_meta_boxes' ) );
+			add_action( 'load-post.php', array( $self_main, 'set_meta_boxes' ) );
+			add_action( 'load-post-new.php', array( $self_main, 'set_meta_boxes' ) );
 		} else {
 			/*
 			 * Remove extra actions from your WordPress site & some conditions if your are not in admin dashboard
 			 * */
-			$this->remove_extra_actions();
+			$self_main->remove_extra_actions();
 			//I have disabled it for development phase
 			//add_filter( 'show_admin_bar', '__return_false' );
 		}
 		/*
 		 * show content only for login users (optional)
 		 * */
-		add_filter( 'Theme_name_name_space_only_show_for_login_users', [ $this, 'show_only_login_users' ] );
+		add_filter( 'Theme_name_name_space_only_show_for_login_users', [ $self_main, 'show_only_login_users' ] );
 		/*
 		 * disable feeds
 		 * by using Utility trait
 		 * */
-		add_action( 'do_feed', [ $this, 'disable_feeds' ], 1 );
-		add_action( 'do_feed_rdf', [ $this, 'disable_feeds' ], 1 );
-		add_action( 'do_feed_rss', [ $this, 'disable_feeds' ], 1 );
-		add_action( 'do_feed_rss2', [ $this, 'disable_feeds' ], 1 );
-		add_action( 'do_feed_atom', [ $this, 'disable_feeds' ], 1 );
-		add_action( 'do_feed_rss2_comments', [ $this, 'disable_feeds' ], 1 );
-		add_action( 'do_feed_atom_comments', [ $this, 'disable_feeds' ], 1 );
+		add_action( 'do_feed', [ $self_main, 'disable_feeds' ], 1 );
+		add_action( 'do_feed_rdf', [ $self_main, 'disable_feeds' ], 1 );
+		add_action( 'do_feed_rss', [ $self_main, 'disable_feeds' ], 1 );
+		add_action( 'do_feed_rss2', [ $self_main, 'disable_feeds' ], 1 );
+		add_action( 'do_feed_atom', [ $self_main, 'disable_feeds' ], 1 );
+		add_action( 'do_feed_rss2_comments', [ $self_main, 'disable_feeds' ], 1 );
+		add_action( 'do_feed_atom_comments', [ $self_main, 'disable_feeds' ], 1 );
 		/*
 		 * Add portfolio page template in subdirectory
 		 * by using Utility trait
 		 * */
-		add_filter( 'template_include', [ $this, 'portfolio_page_template' ], 99 );
+		add_filter( 'template_include', [ $self_main, 'portfolio_page_template' ], 99 );
+
+		$self_main->handle_ajax_call();
 	}
 
 	/**

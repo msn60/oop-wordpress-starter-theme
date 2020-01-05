@@ -30,7 +30,9 @@ Constant::define_constant();
 /*
  * Using Main class to prepare your theme
  * */
+Main::init();
 $msn_theme_name_name_space_object = Main::get_instance();
+
 
 
 
