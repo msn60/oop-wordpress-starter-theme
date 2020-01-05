@@ -52,7 +52,7 @@ class Main {
 	 *
 	 * @var Main
 	 */
-	private static $instance;
+	protected static $instance;
 	/**
 	 * The unique identifier of this theme.
 	 *
@@ -78,7 +78,7 @@ class Main {
 	 * @access private
 	 * @since  1.0.1
 	 */
-	private function __construct() {
+	protected function __construct() {
 
 		$this->register();
 		$this->handle_ajax_call();
