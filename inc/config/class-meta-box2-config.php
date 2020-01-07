@@ -38,7 +38,7 @@ trait Meta_Box2_Config {
 		$initial_value = [
 
 			'id'            => 'meta_box_2_id',
-			'title'         => __( 'Meta box2 Headline', 'msn-starter-theme' ),
+			'title'         => esc_html__( 'Meta box2 Headline', 'msn-starter-theme' ),
 			'callback'      => 'render_meta_box2',
 			'screens'       => null,//null - optional
 			'context'       => 'side', //optional

@@ -190,7 +190,7 @@ trait Utility {
 		if ( is_user_logged_in() ) {
 			return $content;
 		}
-		$return_message = __( 'This part only shows for login users!!!', 'msn-starter-theme' );
+		$return_message = esc_html__( 'This part only shows for login users!!!', 'msn-starter-theme' );
 
 		return "<p>{$return_message}</p>";
 	}
@@ -209,6 +209,6 @@ trait Utility {
 
 	public function disable_feeds() {
 
-		wp_die( __( 'No feed available, please visit homepage', 'msn-starter-theme' ) );
+		wp_die( esc_html__( 'No feed available, please visit homepage', 'msn-starter-theme' ) );
 	}
 }

@@ -340,9 +340,9 @@ class Main {
 		register_nav_menus(
 			apply_filters(
 				'theme_name_name_space_nav_menus', array(
-					'primary'   => __( 'Primary Menu', 'theme-name-name-space' ),
-					'secondary' => __( 'Secondary Menu', 'theme-name-name-space' ),
-					'footer'    => __( 'Footer Menu', 'theme-name-name-space' ),
+					'primary'   => esc_html__( 'Primary Menu', 'theme-name-name-space' ),
+					'secondary' => esc_html__( 'Secondary Menu', 'theme-name-name-space' ),
+					'footer'    => esc_html__( 'Footer Menu', 'theme-name-name-space' ),
 				)
 			)
 		);
@@ -443,27 +443,27 @@ class Main {
 			'editor-color-palette',
 			array(
 				array(
-					'name'  => __( 'Primary', $this->theme_name ),
+					'name'  => esc_html__( 'Primary', $this->theme_name ),
 					'slug'  => 'primary',
 					'color' => '#bb0000',
 				),
 				array(
-					'name'  => __( 'Secondary', $this->theme_name ),
+					'name'  => esc_html__( 'Secondary', $this->theme_name ),
 					'slug'  => 'secondary',
 					'color' => '#00bb00',
 				),
 				array(
-					'name'  => __( 'Dark Gray', $this->theme_name ),
+					'name'  => esc_html__( 'Dark Gray', $this->theme_name ),
 					'slug'  => 'dark-gray',
 					'color' => '#111',
 				),
 				array(
-					'name'  => __( 'Light Gray', $this->theme_name ),
+					'name'  => esc_html__( 'Light Gray', $this->theme_name ),
 					'slug'  => 'light-gray',
 					'color' => '#767676',
 				),
 				array(
-					'name'  => __( 'White', $this->theme_name ),
+					'name'  => esc_html__( 'White', $this->theme_name ),
 					'slug'  => 'white',
 					'color' => '#FFF',
 				),
@@ -490,15 +490,15 @@ class Main {
 	 */
 	public function widgets_init() {
 		$sidebar_args['sidebar'] = array(
-			'name'        => __( 'Sidebar', 'storefront' ),
+			'name'        => esc_html__( 'Sidebar', 'storefront' ),
 			'id'          => 'sidebar-1',
 			'description' => '',
 		);
 
 		$sidebar_args['header'] = array(
-			'name'        => __( 'Below Header', 'storefront' ),
+			'name'        => esc_html__( 'Below Header', 'storefront' ),
 			'id'          => 'header-1',
-			'description' => __( 'Widgets added to this region will appear beneath the header and above the main content.', 'storefront' ),
+			'description' => esc_html__( 'Widgets added to this region will appear beneath the header and above the main content.', 'storefront' ),
 		);
 
 		$rows    = intval( apply_filters( 'storefront_footer_widget_rows', 1 ) );
@@ -511,17 +511,17 @@ class Main {
 
 				if ( 1 === $rows ) {
 					/* translators: 1: column number */
-					$footer_region_name = sprintf( __( 'Footer Column %1$d', 'storefront' ), $region );
+					$footer_region_name = sprintf( esc_html__( 'Footer Column %1$d', 'storefront' ), $region );
 
 					/* translators: 1: column number */
-					$footer_region_description = sprintf( __( 'Widgets added here will appear in column %1$d of the footer.', 'storefront' ),
+					$footer_region_description = sprintf( esc_html__( 'Widgets added here will appear in column %1$d of the footer.', 'storefront' ),
 						$region );
 				} else {
 					/* translators: 1: row number, 2: column number */
-					$footer_region_name = sprintf( __( 'Footer Row %1$d - Column %2$d', 'storefront' ), $row, $region );
+					$footer_region_name = sprintf( esc_html__( 'Footer Row %1$d - Column %2$d', 'storefront' ), $row, $region );
 
 					/* translators: 1: column number, 2: row number */
-					$footer_region_description = sprintf( __( 'Widgets added here will appear in column %1$d of footer row %2$d.', 'storefront' ),
+					$footer_region_description = sprintf( esc_html__( 'Widgets added here will appear in column %1$d of footer row %2$d.', 'storefront' ),
 						$region, $row );
 				}
 
