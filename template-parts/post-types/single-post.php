@@ -41,6 +41,10 @@
         </p>
     </div>
     <hr>
+    <div>
+        <?php the_terms( get_the_ID(), 'category', __('categories: ','msn-starter-theme'), ' / ' ); ?>
+    </div>
+    <hr>
     <!-- Show comments -->
     <?php get_template_part('template-parts/comments/comment','popup-link' ) ?>
     <!-- Show social -->

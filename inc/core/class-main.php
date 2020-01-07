@@ -104,7 +104,7 @@ class Main {
 	 * @see    http://farhadnote.ir/articles/2017/11/14/dependency-injection.html
 	 */
 	public static function init() {
-		$self_main = new self();
+		$self_main = Main::get_instance();
 		add_action( 'after_setup_theme', array( $self_main, 'setup' ) );
 		add_action( 'wp_enqueue_scripts', array( $self_main, 'scripts' ), 10 );
 		/*add_action( 'widgets_init', array( $self_main, 'widgets_init' ) );*/
