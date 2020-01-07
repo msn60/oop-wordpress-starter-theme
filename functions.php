@@ -30,9 +30,9 @@ Constant::define_constant();
 /*
  * Using Main class to prepare your theme
  * */
-$sample_main_object = Main::get_instance();
 $sample_hook_object = new Hook();
-$sample_hook_object->set_theme_hooks($sample_main_object);
+$sample_main_object = Main::get_instance();
+$sample_main_object->init_theme( $sample_hook_object );
 
 
 

@@ -28,6 +28,7 @@ use Theme_Name_Name_Space\Inc\Parts\{
 };
 
 use Theme_Name_Name_Space\Inc\Functions\Utility;
+use Theme_Name_Name_Space\Inc\Core\Hook;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -90,6 +91,22 @@ class Main {
 			$this->theme_version = 'msn-oop-starter';
 		}
 
+	}
+
+	/**
+	 * Init_theme_method
+	 *
+	 * @access public
+	 * @since  1.0.1
+	 *
+	 * @param  object|Hook $main_object
+	 *
+	 * @see    https://carlalexander.ca/designing-class-wordpress-hooks/
+	 * @see    http://farhadnote.ir/articles/2017/11/14/dependency-injection.html
+	 */
+	public function init_theme( Hook $hook_object ) {
+
+		$hook_object->set_theme_hooks($this);
 	}
 
 	/**
