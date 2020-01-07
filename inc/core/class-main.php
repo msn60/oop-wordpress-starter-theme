@@ -154,11 +154,11 @@ class Main {
 	 * from this method.
 	 *
 	 * @since    1.0.1
-	 * @access   private
+	 * @access   public
 	 * @see      \Theme_Name_Name_Space\Inc\Config\Admin_Menu
 	 * @see      \Theme_Name_Name_Space\Inc\Config\Initial_Value
 	 */
-	private function set_admin_menu() {
+	public function set_admin_menu() {
 		$theme_name_sample_admin_menu = new Admin_Menu( $this->sample_menu_page() );
 		add_action( 'admin_menu', array( $theme_name_sample_admin_menu, 'add_admin_menu_page' ) );
 

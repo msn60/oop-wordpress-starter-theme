@@ -12,7 +12,7 @@
  */
 
 use Theme_Name_Name_Space\Inc\Core\{
-	Constant, Main
+	Constant, Main, Hook
 };
 use Theme_Name_Name_Space\Inc\Admin\Admin_Menu;
 
@@ -30,7 +30,9 @@ Constant::define_constant();
 /*
  * Using Main class to prepare your theme
  * */
-Main::init();
+$sample_main_object = Main::get_instance();
+$sample_hook_object = new Hook();
+$sample_hook_object->set_theme_hooks($sample_main_object);
 
 
 
