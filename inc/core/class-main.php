@@ -92,82 +92,6 @@ class Main {
 	}
 
 	/**
-	 * Init_theme_method
-	 *
-	 * @access public
-	 * @since  1.0.1
-	 *
-	 * @param  object|Hook $main_object
-	 *
-	 * @see    https://carlalexander.ca/designing-class-wordpress-hooks/
-	 * @see    http://farhadnote.ir/articles/2017/11/14/dependency-injection.html
-	 */
-	public function init_theme( Hook $hook_object, array $admin_menus = null) {
-
-		$hook_object->set_theme_hooks($this, $admin_menus);
-	}
-
-
-	/**
-	 * Remove extra actions.
-	 * This method removes extra add_actions that you want to avoid from executing.
-	 *
-	 * @access public
-	 * @since  1.0.1
-	 */
-	public function remove_extra_actions() {
-		/*
-		 * Display the links to the extra feeds such as category feeds
-		 * */
-		remove_action( 'wp_head', 'feed_links_extra', 3 );
-		/*
-		 * Display the links to the general feeds: Post and Comment Feed
-		 * */
-		remove_action( 'wp_head', 'feed_links', 2 );
-		/*
-		 * Display the link to the Really Simple Discovery service endpoint, EditURI link
-		 * */
-		remove_action( 'wp_head', 'rsd_link' );
-		/*
-		 * Display the link to the Windows Live Writer manifest file.
-		 * */
-		remove_action( 'wp_head', 'wlwmanifest_link' );
-		/*
-		 * index link
-		 * */
-		remove_action( 'wp_head', 'index_rel_link' );
-		/*
-		 * prev link
-		 * */
-		remove_action( 'wp_head', 'parent_post_rel_link', 10 );
-		/*
-		 * start link
-		 * */
-		remove_action( 'wp_head', 'start_post_rel_link', 10 );
-		/*
-		 * Display relational links for the posts adjacent to the current post.
-		 * */
-		remove_action( 'wp_head', 'adjacent_posts_rel_link', 10 );
-		/*
-		 * Display the XHTML generator that is generated on the wp_head hook, WP version
-		 * */
-		remove_action( 'wp_head', 'wp_generator' );
-		/*
-		 * remove emojis
-		 * */
-		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
-		remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
-		remove_action( 'wp_print_styles', 'print_emoji_styles' );
-		remove_action( 'admin_print_styles', 'print_emoji_styles' );
-	}
-
-	public function handle_ajax_call() {
-
-		$ajax_call_obj_1 = new Sample_Ajax_1( 'sample_ajax_call_1' );
-		$ajax_call_obj_2 = new Sample_Ajax_2( 'sample_ajax_call_2' );
-	}
-
-	/**
 	 * Gets an instance of  theme.
 	 *
 	 * @return Main
@@ -178,6 +102,40 @@ class Main {
 		}
 
 		return self::$instance;
+	}
+
+	/**
+	 * Init_theme_method
+	 *
+	 * @access public
+	 * @since  1.0.1
+	 *
+	 * @param  object|Hook $main_object
+	 *
+	 * @see    https://carlalexander.ca/designing-class-wordpress-hooks/
+	 * @see    http://farhadnote.ir/articles/2017/11/14/dependency-injection.html
+	 */
+	public function set_theme_hooks( Hook $hook_object, array $admin_menus = null ) {
+
+		$hook_object->initial_theme_hooks( $this );
+		$hook_object->add_theme_filters( $this );
+		$hook_object->disable_feeds( $this );
+		if ( is_admin() ) {
+			$hook_object->set_admin_menu_hook( $admin_menus['sample_admin_menu'] );
+			$hook_object->set_admin_sub_menu_hook( $admin_menus['sample_admin_sub_menu1'] );
+			$hook_object->set_admin_sub_menu_hook( $admin_menus['sample_admin_sub_menu2'] );
+		} else {
+			/*
+			 * Remove extra actions from your WordPress site & some conditions if your are not in admin dashboard
+			 * */
+			$hook_object->remove_extra_actions();
+		}
+	}
+
+	public function handle_ajax_call() {
+
+		$ajax_call_obj_1 = new Sample_Ajax_1( 'sample_ajax_call_1' );
+		$ajax_call_obj_2 = new Sample_Ajax_2( 'sample_ajax_call_2' );
 	}
 
 	/**
@@ -460,7 +418,8 @@ class Main {
 					$footer_region_name = sprintf( esc_html__( 'Footer Row %1$d - Column %2$d', 'storefront' ), $row, $region );
 
 					/* translators: 1: column number, 2: row number */
-					$footer_region_description = sprintf( esc_html__( 'Widgets added here will appear in column %1$d of footer row %2$d.', 'storefront' ),
+					$footer_region_description = sprintf( esc_html__( 'Widgets added here will appear in column %1$d of footer row %2$d.',
+						'storefront' ),
 						$region, $row );
 				}
 

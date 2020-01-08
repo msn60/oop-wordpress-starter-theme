@@ -37,7 +37,7 @@ $sample_main_object                    = Main::get_instance();
 $admin_menus['sample_admin_menu']      = new Admin_Menu1( $sample_main_object ->sample_menu_page() );
 $admin_menus['sample_admin_sub_menu1'] = new Admin_Sub_Menu1( $sample_main_object ->sample_sub_menu_page1() );
 $admin_menus['sample_admin_sub_menu2'] = new Admin_Sub_Menu2( $sample_main_object ->sample_sub_menu_page2() );
-$sample_main_object->init_theme(
+$sample_main_object->set_theme_hooks(
 	$sample_hook_object,
 	$admin_menus
 );
