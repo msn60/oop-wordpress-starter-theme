@@ -1,9 +1,9 @@
 <?php
 /**
- * Admin_Sub_Menu Class File
+ * Admin_Sub_Menu Abstract Class File
  *
  * This file contains Admin_Sub_Menu class. If you want create an sub menu page
- * under an admin page (inside Admin panel of WordPress), you can use from this class.
+ * under an admin page (inside Admin panel of WordPress), you must use from this contract.
  *
  * @package    Theme_Name_Name_Space
  * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
@@ -12,7 +12,7 @@
  * @since      1.0.1
  */
 
-namespace Theme_Name_Name_Space\Inc\Admin;
+namespace Theme_Name_Name_Space\Inc\Abstracts;
 
 use Theme_Name_Name_Space\Inc\Config\Initial_Value;
 
@@ -21,16 +21,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Class Admin_Sub_Menu.
+ * Abstract Class Admin_Sub_Menu.
  * If you want create an sub menu page under an admin page
- * (inside Admin panel of WordPress), you can use from this class.
+ * (inside Admin panel of WordPress), you must use this contract.
  *
  * @package    Plugin_Name_Name_Space
  * @author     Your_Name <youremail@nomail.com>
  * @see        wp-admin/includes/plugin.php
  * @see        https://developer.wordpress.org/reference/functions/add_submenu_page/
  */
-class Admin_Sub_Menu {
+abstract class Admin_Sub_Menu {
 
 	use Initial_Value;
 	/**
@@ -123,32 +123,19 @@ class Admin_Sub_Menu {
 			$this->menu_title,
 			$this->capability,
 			$this->menu_slug,
-			array( $this, $this->callable_function )
+			array( $this, 'sub_menu_panel_handler' )
 		);
 
 	}
 
 	/**
-	 * Method sub_menu1_panel_handler in Admin_Sub_Menu Class
+	 * Method sub_menu_panel_handler in Admin_Sub_Menu Class
 	 *
 	 * For each admin submenu page, we must have callable function that render and
-	 * handle this menu page. For each menu page, you must have its own function.
+	 * handle this menu page. For each menu page, you must implement this method.
 	 *
 	 * @access  public
 	 */
-	public function sub_menu1_panel_handler() {
-		echo 'this  is test for admin Sub menu 1 for theme';
-	}
+	abstract public function sub_menu_panel_handler();
 
-	/**
-	 * Method sub_menu2_panel_handler in Admin_Sub_Menu Class
-	 *
-	 * For each admin submenu page, we must have callable function that render and
-	 * handle this menu page. For each menu page, you must have its own function.
-	 *
-	 * @access  public
-	 */
-	public function sub_menu2_panel_handler() {
-		echo 'this  is test for admin Sub menu 2 for theme';
-	}
 }

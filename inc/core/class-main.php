@@ -107,61 +107,6 @@ class Main {
 		$hook_object->set_theme_hooks($this, $admin_menus);
 	}
 
-	/**
-	 * Init function for Control inversion
-	 * This is init function to use dependency injection and you can use it for hooking your file
-	 * inside it like actions or filters
-	 *
-	 * @access private
-	 * @since  1.0.1
-	 *
-	 * @see    https://carlalexander.ca/designing-class-wordpress-hooks/
-	 * @see    http://farhadnote.ir/articles/2017/11/14/dependency-injection.html
-	 */
-	public static function init() {
-		$self_main = Main::get_instance();
-		add_action( 'after_setup_theme', array( $self_main, 'setup' ) );
-		add_action( 'wp_enqueue_scripts', array( $self_main, 'scripts' ), 10 );
-		/*add_action( 'widgets_init', array( $self_main, 'widgets_init' ) );*/
-		if ( is_admin() ) {
-			$self_main->set_admin_menu();
-			/*
-			 * set meta boxes here
-			 * */
-			add_action( 'load-post.php', array( $self_main, 'set_meta_boxes' ) );
-			add_action( 'load-post-new.php', array( $self_main, 'set_meta_boxes' ) );
-		} else {
-			/*
-			 * Remove extra actions from your WordPress site & some conditions if your are not in admin dashboard
-			 * */
-			$self_main->remove_extra_actions();
-			//I have disabled it for development phase
-			//add_filter( 'show_admin_bar', '__return_false' );
-		}
-		/*
-		 * show content only for login users (optional)
-		 * */
-		add_filter( 'Theme_name_name_space_only_show_for_login_users', [ $self_main, 'show_only_login_users' ] );
-		/*
-		 * disable feeds
-		 * by using Utility trait
-		 * */
-		add_action( 'do_feed', [ $self_main, 'disable_feeds' ], 1 );
-		add_action( 'do_feed_rdf', [ $self_main, 'disable_feeds' ], 1 );
-		add_action( 'do_feed_rss', [ $self_main, 'disable_feeds' ], 1 );
-		add_action( 'do_feed_rss2', [ $self_main, 'disable_feeds' ], 1 );
-		add_action( 'do_feed_atom', [ $self_main, 'disable_feeds' ], 1 );
-		add_action( 'do_feed_rss2_comments', [ $self_main, 'disable_feeds' ], 1 );
-		add_action( 'do_feed_atom_comments', [ $self_main, 'disable_feeds' ], 1 );
-		/*
-		 * Add portfolio page template in subdirectory
-		 * by using Utility trait
-		 * */
-		add_filter( 'template_include', [ $self_main, 'portfolio_page_template' ], 99 );
-
-		$self_main->handle_ajax_call();
-	}
-
 
 	/**
 	 * Remove extra actions.

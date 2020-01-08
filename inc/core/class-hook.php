@@ -60,7 +60,6 @@ class Hook {
 		add_action( 'wp_enqueue_scripts', array( $main_object, 'scripts' ), 10 );
 		/*add_action( 'widgets_init', array( $main_object, 'widgets_init' ) );*/
 		if ( is_admin() ) {
-
 			/*
 			 * set meta boxes here
 			 * */
@@ -100,9 +99,7 @@ class Hook {
 
 	protected function set_admin_menu_hooks( array $admin_menus ) {
 		add_action( 'admin_menu', array( $admin_menus['sample_admin_menu'], 'add_admin_menu_page' ) );
-
 		add_action( 'admin_menu', array( $admin_menus['sample_admin_sub_menu1'], 'add_admin_sub_menu_page' ) );
-
 		add_action( 'admin_menu', array( $admin_menus['sample_admin_sub_menu2'], 'add_admin_sub_menu_page' ) );
 	}
 
