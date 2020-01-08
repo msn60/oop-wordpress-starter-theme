@@ -42,7 +42,7 @@ trait Initial_Value {
 			'menu_title'        => esc_html__( 'Theme Option', 'msn-starter-theme' ),
 			'capability'        => 'manage_options',
 			'menu_slug'         => 'theme-name-option-page-url',
-			'callable_function' => 'management_panel_handler',
+			'callable_function' => 'management_panel_handler',//it can be null
 			'icon_url'          => 'dashicons-welcome-widgets-menus',
 			'position'          => 11,
 		];

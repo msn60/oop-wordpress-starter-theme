@@ -16,9 +16,7 @@ namespace Theme_Name_Name_Space\Inc\Core;
 /*
  * Define your namespaces here by use keyword
  * */
-use Theme_Name_Name_Space\Inc\Admin\{
-	Admin_Menu, Admin_Sub_Menu, Meta_box
-};
+use Theme_Name_Name_Space\Inc\Admin\Meta_box;
 use Theme_Name_Name_Space\Inc\Config\{
 	Initial_Value, Meta_Box1_Config, Meta_Box2_Config
 };
@@ -104,9 +102,9 @@ class Main {
 	 * @see    https://carlalexander.ca/designing-class-wordpress-hooks/
 	 * @see    http://farhadnote.ir/articles/2017/11/14/dependency-injection.html
 	 */
-	public function init_theme( Hook $hook_object ) {
+	public function init_theme( Hook $hook_object, array $admin_menus = null) {
 
-		$hook_object->set_theme_hooks($this);
+		$hook_object->set_theme_hooks($this, $admin_menus);
 	}
 
 	/**
@@ -164,27 +162,6 @@ class Main {
 		$self_main->handle_ajax_call();
 	}
 
-	/**
-	 * Define admin menu for your theme
-	 *
-	 * If you need some admin menus in WordPress admin panel, you can use
-	 * from this method.
-	 *
-	 * @since    1.0.1
-	 * @access   public
-	 * @see      \Theme_Name_Name_Space\Inc\Config\Admin_Menu
-	 * @see      \Theme_Name_Name_Space\Inc\Config\Initial_Value
-	 */
-	public function set_admin_menu() {
-		$theme_name_sample_admin_menu = new Admin_Menu( $this->sample_menu_page() );
-		add_action( 'admin_menu', array( $theme_name_sample_admin_menu, 'add_admin_menu_page' ) );
-
-		$theme_name_sample_admin_sub_menu1 = new Admin_Sub_Menu( $this->sample_sub_menu_page1() );
-		add_action( 'admin_menu', array( $theme_name_sample_admin_sub_menu1, 'add_admin_sub_menu_page' ) );
-
-		$theme_name_sample_admin_sub_menu2 = new Admin_Sub_Menu( $this->sample_sub_menu_page2() );
-		add_action( 'admin_menu', array( $theme_name_sample_admin_sub_menu2, 'add_admin_sub_menu_page' ) );
-	}
 
 	/**
 	 * Remove extra actions.

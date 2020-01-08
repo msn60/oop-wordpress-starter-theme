@@ -34,8 +34,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Hook {
 
 
-	public function set_theme_hooks( Main $main_object ) {
+	public function set_theme_hooks( Main $main_object, $admin_menus = null ) {
 		$this->initial_theme_hooks( $main_object );
+		if ( is_admin() ) {
+			$this->set_admin_menu_hooks( $admin_menus );
+		}
 	}
 
 	/**
@@ -57,7 +60,7 @@ class Hook {
 		add_action( 'wp_enqueue_scripts', array( $main_object, 'scripts' ), 10 );
 		/*add_action( 'widgets_init', array( $main_object, 'widgets_init' ) );*/
 		if ( is_admin() ) {
-			$main_object->set_admin_menu();
+
 			/*
 			 * set meta boxes here
 			 * */
@@ -93,6 +96,14 @@ class Hook {
 		add_filter( 'template_include', [ $main_object, 'portfolio_page_template' ], 99 );
 
 		$main_object->handle_ajax_call();
+	}
+
+	protected function set_admin_menu_hooks( array $admin_menus ) {
+		add_action( 'admin_menu', array( $admin_menus['sample_admin_menu'], 'add_admin_menu_page' ) );
+
+		add_action( 'admin_menu', array( $admin_menus['sample_admin_sub_menu1'], 'add_admin_sub_menu_page' ) );
+
+		add_action( 'admin_menu', array( $admin_menus['sample_admin_sub_menu2'], 'add_admin_sub_menu_page' ) );
 	}
 
 	/**

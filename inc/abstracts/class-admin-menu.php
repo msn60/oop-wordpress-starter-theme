@@ -1,9 +1,9 @@
 <?php
 /**
- * Admin_Menu Class File
+ * Admin_Menu abstract Class File
  *
- * This file contains Admin_Menu class. If you want create an admin page
- * inside admin panel of WordPress, you can use from this class.
+ * This file contains contract for Admin_Menu class. If you want create an admin page
+ * inside admin panel of WordPress, you must to use this contract.
  *
  * @package    Theme_Name_Name_Space
  * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
@@ -12,7 +12,7 @@
  * @since      1.0.1
  */
 
-namespace Theme_Name_Name_Space\Inc\Admin;
+namespace Theme_Name_Name_Space\Inc\Abstracts;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @see        wp-admin/includes/plugin.php
  * @see        https://developer.wordpress.org/reference/functions/add_menu_page/
  */
-class Admin_Menu {
+abstract class Admin_Menu {
 
 	/**
 	 * Define page_title property in Admin_Menu class.
@@ -127,21 +127,19 @@ class Admin_Menu {
 			$this->menu_title,
 			$this->capability,
 			$this->menu_slug,
-			array( $this, $this->callable_function ),
+			array( $this, 'management_panel_handler' ),
 			$this->icon_url,
 			$this->position
 		);
 	}
 
 	/**
-	 * Method management_panel_handler in Admin_Menu Class
+	 * Abstract Method management_panel_handler in Admin_Menu Class
 	 *
 	 * For each admin menu page, we must have callable function that render and
-	 * handle this menu page. For each menu page, you must have its own function.
+	 * handle this menu page. For each menu page, you must implement it.
 	 *
 	 * @access  public
 	 */
-	public function management_panel_handler() {
-
-	}
+	abstract public function management_panel_handler();
 }
