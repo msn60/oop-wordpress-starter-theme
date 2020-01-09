@@ -104,12 +104,12 @@ class Main {
 	 */
 	public function __construct(
 		Hook $hooks,
-		Initial_Value $initial_values = null,
-		Admin_Menu $admin_menu1 = null,
-		Admin_Sub_Menu1 $admin_sub_menu_1 = null,
-		Admin_Sub_Menu2 $admin_sub_menu_2 = null,
-		Sample_Ajax_1 $sample_ajax_1 = null,
-		Sample_Ajax_2 $sample_ajax_2 = null
+		Initial_Value $initial_values,
+		Admin_Menu $admin_menu1,
+		Admin_Sub_Menu1 $admin_sub_menu_1,
+		Admin_Sub_Menu2 $admin_sub_menu_2,
+		Sample_Ajax_1 $sample_ajax_1,
+		Sample_Ajax_2 $sample_ajax_2
 
 	) {
 
@@ -131,7 +131,6 @@ class Main {
 		$this->admin_sub_menu2 = $admin_sub_menu_2;
 		$this->sample_ajax_1   = $sample_ajax_1;
 		$this->sample_ajax_2   = $sample_ajax_2;
-
 
 	}
 
