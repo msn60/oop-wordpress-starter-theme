@@ -32,7 +32,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 abstract class Admin_Sub_Menu {
 
-	use Initial_Value;
 	/**
 	 * Define parent_slug property in Admin_Sub_Menu class.
 	 * This property use to pass to add_submenu_page as an argument.

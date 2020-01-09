@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package    Theme_Name_Name_Space
  * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  */
-trait Initial_Value {
+class Initial_Value {
 
 	/**
 	 * Initial values to create admin menu page.

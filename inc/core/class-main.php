@@ -41,8 +41,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  */
 class Main {
-
-	use Initial_Value;
 	use Meta_Box1_Config;
 	use Meta_Box2_Config;
 	use Utility;
@@ -68,6 +66,18 @@ class Main {
 	 * @var      string $theme_version The current version of the theme.
 	 */
 	protected $theme_version;
+	/**
+	 * @var Hook $hook_object Object  to keep all of hooks in your theme
+	 */
+	protected $hooks;
+	/**
+	 * @var array $admin_menus_object Object  to keep all of hooks in your theme
+	 */
+	protected $admin_menus;
+	/**
+	 * @var Initial_Value $initial_values An object  to keep all of initial values for theme
+	 */
+	protected $initial_values;
 
 	/**
 	 * Main constructor.
@@ -75,8 +85,14 @@ class Main {
 	 *
 	 * @access private
 	 * @since  1.0.1
+	 *
+	 * @param Hook  $hooks
+	 * @param array $admin_menus
 	 */
-	protected function __construct() {
+	public function __construct(
+		Hook $hooks,
+		array $admin_menus = null
+	) {
 
 		if ( defined( THEME_NAME_VERSION ) ) {
 			$this->theme_version = THEME_NAME_VERSION;
@@ -89,20 +105,11 @@ class Main {
 			$this->theme_version = 'msn-oop-starter';
 		}
 
+		$this->hooks       = $hooks;
+		$this->admin_menus = $admin_menus;
+
 	}
 
-	/**
-	 * Gets an instance of  theme.
-	 *
-	 * @return Main
-	 */
-	public static function get_instance() {
-		if ( null === self::$instance ) {
-			self::$instance = new self();
-		}
-
-		return self::$instance;
-	}
 
 	/**
 	 * Init_theme_method
@@ -110,25 +117,24 @@ class Main {
 	 * @access public
 	 * @since  1.0.1
 	 *
-	 * @param  object|Hook $main_object
 	 *
 	 * @see    https://carlalexander.ca/designing-class-wordpress-hooks/
 	 * @see    http://farhadnote.ir/articles/2017/11/14/dependency-injection.html
 	 */
-	public function set_theme_hooks( Hook $hook_object, array $admin_menus = null ) {
+	public function set_theme_hooks() {
 
-		$hook_object->initial_theme_hooks( $this );
-		$hook_object->add_theme_filters( $this );
-		$hook_object->disable_feeds( $this );
+		$this->hooks->initial_theme_hooks( $this );
+		$this->hooks->add_theme_filters( $this );
+		$this->hooks->disable_feeds( $this );
 		if ( is_admin() ) {
-			$hook_object->set_admin_menu_hook( $admin_menus['sample_admin_menu'] );
-			$hook_object->set_admin_sub_menu_hook( $admin_menus['sample_admin_sub_menu1'] );
-			$hook_object->set_admin_sub_menu_hook( $admin_menus['sample_admin_sub_menu2'] );
+			$this->hooks->set_admin_menu_hook( $this->admin_menus['sample_admin_menu'] );
+			$this->hooks->set_admin_sub_menu_hook( $this->admin_menus['sample_admin_sub_menu1'] );
+			$this->hooks->set_admin_sub_menu_hook( $this->admin_menus['sample_admin_sub_menu2'] );
 		} else {
 			/*
 			 * Remove extra actions from your WordPress site & some conditions if your are not in admin dashboard
 			 * */
-			$hook_object->remove_extra_actions();
+			$this->hooks->remove_extra_actions();
 		}
 	}
 
