@@ -80,9 +80,13 @@ class Main {
 	 */
 	protected $admin_sub_menu2;
 	/**
-	 * @var array $admin_menus_object Object  to keep all of hooks in your theme
+	 * @var Sample_Ajax_1 $sample_ajax_1
 	 */
-	protected $admin_menus;
+	protected $sample_ajax_1;
+	/**
+	 * @var Sample_Ajax_2 $sample_ajax_2
+	 */
+	protected $sample_ajax_2;
 	/**
 	 * @var Initial_Value $initial_values An object  to keep all of initial values for theme
 	 */
@@ -103,7 +107,9 @@ class Main {
 		Initial_Value $initial_values = null,
 		Admin_Menu $admin_menu1 = null,
 		Admin_Sub_Menu1 $admin_sub_menu_1 = null,
-		Admin_Sub_Menu2 $admin_sub_menu_2 = null
+		Admin_Sub_Menu2 $admin_sub_menu_2 = null,
+		Sample_Ajax_1 $sample_ajax_1 = null,
+		Sample_Ajax_2 $sample_ajax_2 = null
 
 	) {
 
@@ -123,6 +129,8 @@ class Main {
 		$this->admin_menu1     = $admin_menu1;
 		$this->admin_sub_menu1 = $admin_sub_menu_1;
 		$this->admin_sub_menu2 = $admin_sub_menu_2;
+		$this->sample_ajax_1   = $sample_ajax_1;
+		$this->sample_ajax_2   = $sample_ajax_2;
 
 
 	}
@@ -160,12 +168,15 @@ class Main {
 
 	}
 
+	/**
+	 * Method to handle ajax calls in theme
+	 *
+	 * @access public
+	 * @since  1.0.1
+	 */
 	public function handle_ajax_call() {
-
-		$ajax_call_obj_1 = new Sample_Ajax_1( 'sample_ajax_call_1' );
-		$ajax_call_obj_1->set_add_actions();
-		$ajax_call_obj_2 = new Sample_Ajax_2( 'sample_ajax_call_2' );
-		$ajax_call_obj_2->set_add_actions();
+		$this->sample_ajax_1->set_add_actions();
+		$this->sample_ajax_2->set_add_actions();
 	}
 
 	/**

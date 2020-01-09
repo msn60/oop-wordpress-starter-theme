@@ -19,6 +19,9 @@ use Theme_Name_Name_Space\Inc\Admin\{
 };
 
 use Theme_Name_Name_Space\Inc\Config\Initial_Value;
+use Theme_Name_Name_Space\Inc\Parts\{
+	Sample_Ajax_1, Sample_Ajax_2
+};
 
 
 /*
@@ -104,7 +107,9 @@ final class Theme_Name_Theme {
 			$this->initial_values,
 			new Admin_Menu1( $this->initial_values->sample_menu_page() ),
 			new Admin_Sub_Menu1($this->initial_values->sample_sub_menu_page1()),
-			new Admin_Sub_Menu2($this->initial_values->sample_sub_menu_page2())
+			new Admin_Sub_Menu2($this->initial_values->sample_sub_menu_page2()),
+			new Sample_Ajax_1( 'sample_ajax_call_1' ),
+			new Sample_Ajax_2( 'sample_ajax_call_2' )
 		);
 		$this->main_object->init_main();
 	}
