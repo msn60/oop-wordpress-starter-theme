@@ -102,8 +102,8 @@ class Main {
 		Hook $hooks,
 		Initial_Value $initial_values = null,
 		Admin_Menu $admin_menu1 = null,
-		Admin_Sub_Menu1 $admin_sub_menu_1,
-		Admin_Sub_Menu2 $admin_sub_menu_2
+		Admin_Sub_Menu1 $admin_sub_menu_1 = null,
+		Admin_Sub_Menu2 $admin_sub_menu_2 = null
 
 	) {
 
@@ -142,11 +142,10 @@ class Main {
 
 		$this->hooks->theme_add_actions();
 		$this->hooks->theme_add_filters();
+		$this->hooks->disable_feeds();
+		$this->handle_ajax_call();
 		if ( is_admin() ) {
-
-			$this->admin_menu1->set_add_action();
-			$this->admin_sub_menu1->set_add_action();
-			$this->admin_sub_menu2->set_add_action();
+			$this->set_admin_menus();
 			/*
 			 * set meta boxes here
 			 * */
@@ -159,14 +158,26 @@ class Main {
 			$this->hooks->remove_extra_actions();
 		}
 
-		$this->hooks->disable_feeds();
-		$this->handle_ajax_call();
 	}
 
 	public function handle_ajax_call() {
 
 		$ajax_call_obj_1 = new Sample_Ajax_1( 'sample_ajax_call_1' );
+		$ajax_call_obj_1->set_add_actions();
 		$ajax_call_obj_2 = new Sample_Ajax_2( 'sample_ajax_call_2' );
+		$ajax_call_obj_2->set_add_actions();
+	}
+
+	/**
+	 * Method to set all of needed admin menus
+	 *
+	 * @access public
+	 * @since  1.0.1
+	 */
+	public function set_admin_menus() {
+		$this->admin_menu1->set_add_action();
+		$this->admin_sub_menu1->set_add_action();
+		$this->admin_sub_menu2->set_add_action();
 	}
 
 	/**

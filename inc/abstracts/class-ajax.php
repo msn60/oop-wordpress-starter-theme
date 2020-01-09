@@ -58,18 +58,17 @@ abstract class Ajax {
 		$this->ajax_url   = admin_url( 'admin-ajax.php' );
 		$this->ajax_nonce = wp_create_nonce( 'sample_ajax_nonce' );
 		$this->action     = $action;
-		$this->add_actions_filters();
 
 	}
 
 	/**
-	 * Method to order to add_action and add_filter in ajax class
+	 * Method to define add_action for using in theme or plugin
 	 *
 	 * @access public
 	 * @since  1.0.1
 	 *
 	 */
-	public function add_actions_filters() {
+	public function set_add_actions() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_script' ), 10 );
 		//hook to add your ajax request
 		add_action( 'wp_ajax_' . $this->action, [ $this, 'handle' ] );
