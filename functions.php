@@ -51,14 +51,6 @@ final class Theme_Name_Theme {
 	 */
 	protected $initial_values;
 	/**
-	 * @var Hook $hook_object An object that initiate all desire hooks for theme.
-	 */
-	private $hook_object;
-	/**
-	 * @var array $admin_menus An array that keeps all of admin menus and sub menus in theme.
-	 */
-	private $admin_menus;
-	/**
 	 * @var Main $main_object An object to keep Main class for theme.
 	 */
 	private $main_object;
@@ -107,12 +99,14 @@ final class Theme_Name_Theme {
 	 */
 	public function init_theme() {
 		$this->initial_values                        = new Initial_Value();
-		$this->hook_object                           = new Hook();
-		$this->admin_menus['sample_admin_menu']      = new Admin_Menu1( $this->initial_values->sample_menu_page() );
-		$this->admin_menus['sample_admin_sub_menu1'] = new Admin_Sub_Menu1( $this->initial_values->sample_sub_menu_page1() );
-		$this->admin_menus['sample_admin_sub_menu2'] = new Admin_Sub_Menu2( $this->initial_values->sample_sub_menu_page2() );
-		$this->main_object                           = new Main( $this->hook_object, $this->admin_menus );
-		$this->main_object->set_theme_hooks();
+		$this->main_object                           = new Main(
+			new Hook(),
+			$this->initial_values,
+			new Admin_Menu1( $this->initial_values->sample_menu_page() ),
+			new Admin_Sub_Menu1($this->initial_values->sample_sub_menu_page1()),
+			new Admin_Sub_Menu2($this->initial_values->sample_sub_menu_page2())
+		);
+		$this->main_object->init_main();
 	}
 
 }

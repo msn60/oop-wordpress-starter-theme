@@ -128,6 +128,15 @@ abstract class Admin_Sub_Menu {
 	}
 
 	/**
+	 * call 'admin_menu' add_action to create Admin submenu page
+	 *
+	 * @access public
+	 */
+	public function set_add_action() {
+		add_action( 'admin_menu', array( $this, 'add_admin_sub_menu_page' ) );
+	}
+
+	/**
 	 * Method sub_menu_panel_handler in Admin_Sub_Menu Class
 	 *
 	 * For each admin submenu page, we must have callable function that render and

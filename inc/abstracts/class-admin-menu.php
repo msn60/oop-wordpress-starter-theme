@@ -25,6 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @package    Plugin_Name_Name_Space
  * @author     Your_Name <youremail@nomail.com>
+ *
  * @see        wp-admin/includes/plugin.php
  * @see        https://developer.wordpress.org/reference/functions/add_menu_page/
  */
@@ -134,6 +135,15 @@ abstract class Admin_Menu {
 	}
 
 	/**
+	 * call 'admin_menu' add_action to create Admin menu page
+	 *
+	 * @access public
+	 */
+	public function set_add_action() {
+		add_action( 'admin_menu', array( $this, 'add_admin_menu_page' ) );
+	}
+
+	/**
 	 * Abstract Method management_panel_handler in Admin_Menu Class
 	 *
 	 * For each admin menu page, we must have callable function that render and
@@ -142,4 +152,5 @@ abstract class Admin_Menu {
 	 * @access  public
 	 */
 	abstract public function management_panel_handler();
+
 }

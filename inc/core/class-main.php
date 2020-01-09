@@ -16,7 +16,10 @@ namespace Theme_Name_Name_Space\Inc\Core;
 /*
  * Define your namespaces here by use keyword
  * */
-use Theme_Name_Name_Space\Inc\Admin\Meta_box;
+use Theme_Name_Name_Space\Inc\Abstracts\Admin_Menu;
+use Theme_Name_Name_Space\Inc\Admin\{
+	Admin_Menu1, Admin_Sub_Menu1, Admin_Sub_Menu2, Meta_box
+};
 use Theme_Name_Name_Space\Inc\Config\{
 	Initial_Value, Meta_Box1_Config, Meta_Box2_Config
 };
@@ -45,12 +48,6 @@ class Main {
 	use Meta_Box2_Config;
 	use Utility;
 	/**
-	 * The unique instance of the theme.
-	 *
-	 * @var Main
-	 */
-	protected static $instance;
-	/**
 	 * The unique identifier of this theme.
 	 *
 	 * @since    1.0.1
@@ -70,6 +67,18 @@ class Main {
 	 * @var Hook $hook_object Object  to keep all of hooks in your theme
 	 */
 	protected $hooks;
+	/**
+	 * @var Admin_Menu1 $admin_menu1
+	 */
+	protected $admin_menu1;
+	/**
+	 * @var Admin_Sub_Menu1 $admin_sub_menu1
+	 */
+	protected $admin_sub_menu1;
+	/**
+	 * @var Admin_Sub_Menu2 $admin_sub_menu2
+	 */
+	protected $admin_sub_menu2;
 	/**
 	 * @var array $admin_menus_object Object  to keep all of hooks in your theme
 	 */
@@ -91,7 +100,11 @@ class Main {
 	 */
 	public function __construct(
 		Hook $hooks,
-		array $admin_menus = null
+		Initial_Value $initial_values = null,
+		Admin_Menu $admin_menu1 = null,
+		Admin_Sub_Menu1 $admin_sub_menu_1,
+		Admin_Sub_Menu2 $admin_sub_menu_2
+
 	) {
 
 		if ( defined( THEME_NAME_VERSION ) ) {
@@ -105,8 +118,12 @@ class Main {
 			$this->theme_version = 'msn-oop-starter';
 		}
 
-		$this->hooks       = $hooks;
-		$this->admin_menus = $admin_menus;
+		$this->hooks           = $hooks;
+		$this->initial_values  = $initial_values;
+		$this->admin_menu1     = $admin_menu1;
+		$this->admin_sub_menu1 = $admin_sub_menu_1;
+		$this->admin_sub_menu2 = $admin_sub_menu_2;
+
 
 	}
 
@@ -121,21 +138,29 @@ class Main {
 	 * @see    https://carlalexander.ca/designing-class-wordpress-hooks/
 	 * @see    http://farhadnote.ir/articles/2017/11/14/dependency-injection.html
 	 */
-	public function set_theme_hooks() {
+	public function init_main() {
 
-		$this->hooks->initial_theme_hooks( $this );
-		$this->hooks->add_theme_filters( $this );
-		$this->hooks->disable_feeds( $this );
+		$this->hooks->theme_add_actions();
+		$this->hooks->theme_add_filters();
 		if ( is_admin() ) {
-			$this->hooks->set_admin_menu_hook( $this->admin_menus['sample_admin_menu'] );
-			$this->hooks->set_admin_sub_menu_hook( $this->admin_menus['sample_admin_sub_menu1'] );
-			$this->hooks->set_admin_sub_menu_hook( $this->admin_menus['sample_admin_sub_menu2'] );
+
+			$this->admin_menu1->set_add_action();
+			$this->admin_sub_menu1->set_add_action();
+			$this->admin_sub_menu2->set_add_action();
+			/*
+			 * set meta boxes here
+			 * */
+			add_action( 'load-post.php', array( $this, 'set_meta_boxes' ) );
+			add_action( 'load-post-new.php', array( $this, 'set_meta_boxes' ) );
 		} else {
 			/*
 			 * Remove extra actions from your WordPress site & some conditions if your are not in admin dashboard
 			 * */
 			$this->hooks->remove_extra_actions();
 		}
+
+		$this->hooks->disable_feeds();
+		$this->handle_ajax_call();
 	}
 
 	public function handle_ajax_call() {
@@ -190,328 +215,6 @@ class Main {
 		$this->theme_version = $theme_version;
 	}
 
-	/**
-	 * Sets up theme defaults and registers support for various WordPress features.
-	 *
-	 * Note that this function is hooked into the after_setup_theme hook, which
-	 * runs before the init hook. The init hook is too late for some features, such
-	 * as indicating support for post thumbnails.
-	 *
-	 * @access public
-	 */
-	public function setup() {
-		/*
-		 * Load Localisation files.
-		 *
-		 * Note: the first-loaded translation file overrides any following ones if the same translation is present.
-		 */
-
-		// Loads wp-content/themes/child-theme-name/languages/theme_name_fa_IR.mo.
-		load_theme_textdomain( 'theme-name-name-space', get_stylesheet_directory() . '/languages' );
-
-		// Loads wp-content/themes/msn-oop-starter/languages/heme_name_fa_IR.mo.
-		load_theme_textdomain( 'theme-name-name-space', THEME_NAME_LANG );
-
-		/*
-		 * Enable support for Post Thumbnails on posts and pages.
-		 *
-		 * @link https://developer.wordpress.org/reference/functions/add_theme_support/#Post_Thumbnails
-		 */
-		add_theme_support( 'post-thumbnails' );
-
-		/**
-		 * Enable support for site logo.
-		 *
-		 * @link https://developer.wordpress.org/reference/functions/add_theme_support/#custom-logo
-		 */
-		add_theme_support(
-			'custom-logo', apply_filters(
-				'theme_name_name_space_logo_args', array(
-					'height'      => 100,
-					'width'       => 400,
-					'flex-width'  => true,
-					'flex-height' => true,
-				)
-			)
-		);
-
-		/**
-		 * Register menu locations.
-		 *
-		 * @link https://developer.wordpress.org/reference/functions/register_nav_menus/
-		 */
-		register_nav_menus(
-			apply_filters(
-				'theme_name_name_space_nav_menus', array(
-					'primary'   => esc_html__( 'Primary Menu', 'theme-name-name-space' ),
-					'secondary' => esc_html__( 'Secondary Menu', 'theme-name-name-space' ),
-					'footer'    => esc_html__( 'Footer Menu', 'theme-name-name-space' ),
-				)
-			)
-		);
-
-		/*
-		 * Switch default core markup for search form, comment form, comments, galleries, captions and widgets
-		 * to output valid HTML5.
-		 *
-		 * @link https://developer.wordpress.org/reference/functions/add_theme_support/#html5
-		 */
-		add_theme_support(
-			'html5', apply_filters(
-				'theme_name_name_space_html5_args', array(
-					'search-form',
-					'comment-form',
-					'comment-list',
-					'gallery',
-					'caption',
-					'widgets',
-				)
-			)
-		);
-
-		/**
-		 * Setup the WordPress core custom background feature.
-		 *
-		 * @link  https://developer.wordpress.org/reference/functions/add_theme_support/#custom-background
-		 */
-		add_theme_support(
-			'custom-background', apply_filters(
-				'theme_name_name_space_custom_background_args', array(
-					'default-color' => apply_filters( 'theme_name_name_space_default_background_color', 'ffffff' ),
-					'default-image' => '',
-				)
-			)
-		);
-
-		/**
-		 * Setup the WordPress core custom header feature.
-		 *
-		 * @link https://developer.wordpress.org/reference/functions/add_theme_support/#custom-header
-		 */
-		add_theme_support(
-			'custom-header', apply_filters(
-				'theme_name_name_space_custom_header_args', array(
-					'default-image' => '',
-					'header-text'   => false,
-					'width'         => 1950,
-					'height'        => 500,
-					'flex-width'    => true,
-					'flex-height'   => true,
-				)
-			)
-		);
-
-		/**
-		 * Declare support for title theme feature.
-		 *
-		 * @link https://developer.wordpress.org/reference/functions/add_theme_support/#title-tag
-		 */
-		add_theme_support( 'title-tag' );
-
-		/**
-		 * Declare support for selective refreshing of widgets.
-		 */
-		add_theme_support( 'customize-selective-refresh-widgets' );
-
-		/**
-		 * Add support for Block Styles.
-		 */
-		add_theme_support( 'wp-block-styles' );
-
-		/**
-		 * Add support for full and wide align images.
-		 */
-		add_theme_support( 'align-wide' );
-
-		/**
-		 * Add support for editor styles.
-		 */
-		add_theme_support( 'editor-styles' );
-
-		/**
-		 * Enqueue editor styles.
-		 * If you need to enqueue editor style, you can use it.
-		 *
-		 * @link: https://richtabor.com/add-wordpress-theme-styles-to-gutenberg/
-		 */
-		add_editor_style( THEME_NAME_CSS . 'admin/gutenberg-editor.css' );
-
-		/**
-		 * Enqueue editor styles.
-		 */
-		//add_editor_style( array( 'assets/css/base/gutenberg-editor.css', $this->google_fonts() ) );
-
-		// Editor color palette for gutenberg.
-		add_theme_support(
-			'editor-color-palette',
-			array(
-				array(
-					'name'  => esc_html__( 'Primary', $this->theme_name ),
-					'slug'  => 'primary',
-					'color' => '#bb0000',
-				),
-				array(
-					'name'  => esc_html__( 'Secondary', $this->theme_name ),
-					'slug'  => 'secondary',
-					'color' => '#00bb00',
-				),
-				array(
-					'name'  => esc_html__( 'Dark Gray', $this->theme_name ),
-					'slug'  => 'dark-gray',
-					'color' => '#111',
-				),
-				array(
-					'name'  => esc_html__( 'Light Gray', $this->theme_name ),
-					'slug'  => 'light-gray',
-					'color' => '#767676',
-				),
-				array(
-					'name'  => esc_html__( 'White', $this->theme_name ),
-					'slug'  => 'white',
-					'color' => '#FFF',
-				),
-			)
-		);
-
-		/**
-		 * Add support for responsive embedded content.
-		 */
-		add_theme_support( 'responsive-embeds' );
-
-		/**
-		 * Add image size for your theme
-		 */
-		add_image_size( 'theme-name-name-space-landscape', 400, 260, true );
-		add_image_size( 'theme-name-name-space-portrait', 480, 650, true );
-	}
-
-	/**
-	 * Register widget area.
-	 *
-	 * @link  https://codex.wordpress.org/Function_Reference/register_sidebar
-	 * @since 1.0.1
-	 */
-	public function widgets_init() {
-		$sidebar_args['sidebar'] = array(
-			'name'        => esc_html__( 'Sidebar', 'storefront' ),
-			'id'          => 'sidebar-1',
-			'description' => '',
-		);
-
-		$sidebar_args['header'] = array(
-			'name'        => esc_html__( 'Below Header', 'storefront' ),
-			'id'          => 'header-1',
-			'description' => esc_html__( 'Widgets added to this region will appear beneath the header and above the main content.', 'storefront' ),
-		);
-
-		$rows    = intval( apply_filters( 'storefront_footer_widget_rows', 1 ) );
-		$regions = intval( apply_filters( 'storefront_footer_widget_columns', 4 ) );
-
-		for ( $row = 1; $row <= $rows; $row ++ ) {
-			for ( $region = 1; $region <= $regions; $region ++ ) {
-				$footer_n = $region + $regions * ( $row - 1 ); // Defines footer sidebar ID.
-				$footer   = sprintf( 'footer_%d', $footer_n );
-
-				if ( 1 === $rows ) {
-					/* translators: 1: column number */
-					$footer_region_name = sprintf( esc_html__( 'Footer Column %1$d', 'storefront' ), $region );
-
-					/* translators: 1: column number */
-					$footer_region_description = sprintf( esc_html__( 'Widgets added here will appear in column %1$d of the footer.', 'storefront' ),
-						$region );
-				} else {
-					/* translators: 1: row number, 2: column number */
-					$footer_region_name = sprintf( esc_html__( 'Footer Row %1$d - Column %2$d', 'storefront' ), $row, $region );
-
-					/* translators: 1: column number, 2: row number */
-					$footer_region_description = sprintf( esc_html__( 'Widgets added here will appear in column %1$d of footer row %2$d.',
-						'storefront' ),
-						$region, $row );
-				}
-
-				$sidebar_args[ $footer ] = array(
-					'name'        => $footer_region_name,
-					'id'          => sprintf( 'footer-%d', $footer_n ),
-					'description' => $footer_region_description,
-				);
-			}
-		}
-
-		$sidebar_args = apply_filters( 'storefront_sidebar_args', $sidebar_args );
-
-		foreach ( $sidebar_args as $sidebar => $args ) {
-			$widget_tags = array(
-				'before_widget' => '<div id="%1$s" class="widget %2$s">',
-				'after_widget'  => '</div>',
-				'before_title'  => '<span class="gamma widget-title">',
-				'after_title'   => '</span>',
-			);
-
-			/**
-			 * Dynamically generated filter hooks. Allow changing widget wrapper and title tags. See the list below.
-			 *
-			 * 'storefront_header_widget_tags'
-			 * 'storefront_sidebar_widget_tags'
-			 *
-			 * 'storefront_footer_1_widget_tags'
-			 * 'storefront_footer_2_widget_tags'
-			 * 'storefront_footer_3_widget_tags'
-			 * 'storefront_footer_4_widget_tags'
-			 */
-			$filter_hook = sprintf( 'storefront_%s_widget_tags', $sidebar );
-			$widget_tags = apply_filters( $filter_hook, $widget_tags );
-
-			if ( is_array( $widget_tags ) ) {
-				register_sidebar( $args + $widget_tags );
-			}
-		}
-	}
-
-	/**
-	 * Enqueue scripts and styles.
-	 *
-	 * @since  1.0.1
-	 */
-	public function scripts() {
-
-		/**
-		 * Add theme style to your WordPress site
-		 *
-		 * With this function, you can add your style for front-end of your website
-		 */
-
-		wp_enqueue_style(
-			MSN_THEME_NAME . '-style',
-			THEME_NAME_CSS . 'theme-name-ver-' . THEME_NAME_CSS_VERSION . '.css',
-			array(),
-			null,
-			'all'
-		);
-		wp_style_add_data(
-			$this->theme_name . '-style',
-			'rtl',
-			'replace'
-		);
-
-		/**
-		 * Add theme JavaScript file to your WordPress site
-		 *
-		 * With this function, you can add your js file for front-end of your website
-		 */
-		wp_enqueue_script(
-			MSN_THEME_NAME . '-script',
-			THEME_NAME_JS . 'theme-name-ver-' . THEME_NAME_JS_VERSION . '.js',
-			array( 'jquery' ),
-			null,
-			true
-		);
-		/*
-		 * localize script to handle ajax call
-		 * */
-		//wp_localize_script( MSN_THEME_NAME. '-script', 'data', $this->sample_ajax_data1() );
-
-
-	}
 
 	public function set_meta_boxes() {
 
