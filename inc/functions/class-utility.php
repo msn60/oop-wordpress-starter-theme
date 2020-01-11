@@ -9,9 +9,9 @@
  * you can put it in this file (or files something like that)
  *
  * @package    Theme_Name_Name_Space
- * @author     Your_Name <youremail@nomail.com>
+ * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  * @license    https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
- * @link       https://yoursite.com
+ * @link       https://wpwebmaster.ir
  * @since      1.0.0
  */
 
@@ -26,8 +26,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * This class contains functions that help you in general tasks like rendering
  * template, convert to numbers and words and so on.
  *
- * @package    Plugin_Name_Name_Space
- * @author     Your_Name <youremail@nomail.com>
+ * @package    Theme_Name_Name_Space
+ * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
+ * @since      1.0.1
  */
 trait Utility {
 

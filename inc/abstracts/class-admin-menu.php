@@ -94,6 +94,15 @@ abstract class Admin_Menu {
 	 * @since      1.0.0
 	 */
 	private $position;
+	/**
+	 * Define unique name for admin menu.
+	 * I will use it for logging in future implementation
+	 *
+	 * @access     private
+	 * @var string $identifier Define a unique name for admin menu
+	 * @since      1.0.0
+	 */
+	private $identifier;
 
 	/**
 	 * Admin_Menu constructor.
@@ -112,6 +121,7 @@ abstract class Admin_Menu {
 		$this->callable_function = $initial_values['callable_function'];
 		$this->icon_url          = $initial_values['icon_url'];
 		$this->position          = $initial_values['position'];
+		$this->identifier        = $initial_values['identifier'];
 	}
 
 	/**

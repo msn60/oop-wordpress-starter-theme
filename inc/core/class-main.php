@@ -16,7 +16,10 @@ namespace Theme_Name_Name_Space\Inc\Core;
 /*
  * Define your namespaces here by use keyword
  * */
+
+use function PHPSTORM_META\type;
 use Theme_Name_Name_Space\Inc\Abstracts\Admin_Menu;
+use Theme_Name_Name_Space\Inc\Abstracts\Admin_Sub_Menu;
 use Theme_Name_Name_Space\Inc\Admin\{
 	Admin_Menu1, Admin_Sub_Menu1, Admin_Sub_Menu2, Meta_box
 };
@@ -28,7 +31,7 @@ use Theme_Name_Name_Space\Inc\Parts\{
 	Sample_Ajax_1, Sample_Ajax_2
 };
 
-use Theme_Name_Name_Space\Inc\Functions\Utility;
+use Theme_Name_Name_Space\Inc\Functions\{Utility, Check_Type};
 use Theme_Name_Name_Space\Inc\Core\Hook;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -47,6 +50,7 @@ class Main {
 	use Meta_Box1_Config;
 	use Meta_Box2_Config;
 	use Utility;
+	use Check_Type;
 	/**
 	 * The unique identifier of this theme.
 	 *
@@ -68,17 +72,13 @@ class Main {
 	 */
 	protected $hooks;
 	/**
-	 * @var Admin_Menu1 $admin_menu1
+	 * @var Admin_Menu[] $admin_menus
 	 */
-	protected $admin_menu1;
+	protected $admin_menus;
 	/**
-	 * @var Admin_Sub_Menu1 $admin_sub_menu1
+	 * @var Admin_Sub_Menu[] $admin_sub_menus
 	 */
-	protected $admin_sub_menu1;
-	/**
-	 * @var Admin_Sub_Menu2 $admin_sub_menu2
-	 */
-	protected $admin_sub_menu2;
+	protected $admin_sub_menus;
 	/**
 	 * @var Sample_Ajax_1 $sample_ajax_1
 	 */
@@ -97,19 +97,20 @@ class Main {
 	 * This is constructor of Main class
 	 *
 	 * @access private
-	 * @since  1.0.1
 	 *
 	 * @param Hook  $hooks
 	 * @param array $admin_menus
+	 *
+	 * @since  1.0.1
+	 *
 	 */
 	public function __construct(
 		Hook $hooks,
 		Initial_Value $initial_values,
-		Admin_Menu $admin_menu1,
-		Admin_Sub_Menu1 $admin_sub_menu_1,
-		Admin_Sub_Menu2 $admin_sub_menu_2,
-		Sample_Ajax_1 $sample_ajax_1,
-		Sample_Ajax_2 $sample_ajax_2
+		array $admin_menus = null,
+		array $admin_sub_menus = null,
+		Sample_Ajax_1 $sample_ajax_1 = null,
+		Sample_Ajax_2 $sample_ajax_2 = null
 
 	) {
 
@@ -126,11 +127,10 @@ class Main {
 
 		$this->hooks           = $hooks;
 		$this->initial_values  = $initial_values;
-		$this->admin_menu1     = $admin_menu1;
-		$this->admin_sub_menu1 = $admin_sub_menu_1;
-		$this->admin_sub_menu2 = $admin_sub_menu_2;
-		$this->sample_ajax_1   = $sample_ajax_1;
-		$this->sample_ajax_2   = $sample_ajax_2;
+		$this->admin_menus     = $this->set_array_by_type( $admin_menus, Admin_Menu::class )['valid'];
+		$this->admin_sub_menus = $this->set_array_by_type( $admin_sub_menus, Admin_Sub_Menu::class )['valid'];
+		$this->sample_ajax_1 = $sample_ajax_1;
+		$this->sample_ajax_2 = $sample_ajax_2;
 
 	}
 
@@ -179,15 +179,18 @@ class Main {
 	}
 
 	/**
-	 * Method to set all of needed admin menus
+	 * Method to set all of needed admin menus and sub menus
 	 *
-	 * @access public
+	 * @access private
 	 * @since  1.0.1
 	 */
-	public function set_admin_menus() {
-		$this->admin_menu1->set_add_action();
-		$this->admin_sub_menu1->set_add_action();
-		$this->admin_sub_menu2->set_add_action();
+	private function set_admin_menus() {
+		foreach ( $this->admin_menus as $admin_menu ) {
+			$admin_menu->set_add_action();
+		}
+		foreach ( $this->admin_sub_menus as $admin_sub_menu ) {
+			$admin_sub_menu->set_add_action();
+		}
 	}
 
 	/**

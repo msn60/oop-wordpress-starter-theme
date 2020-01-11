@@ -83,8 +83,8 @@ final class Theme_Name_Theme {
 	 * Create an instance from Theme_Name_Theme class.
 	 *
 	 * @access public
-	 * @since  1.0.0
 	 * @return Theme_Name_Theme
+	 * @since  1.0.0
 	 */
 	public static function instance() {
 		if ( is_null( ( self::$instance ) ) ) {
@@ -101,15 +101,20 @@ final class Theme_Name_Theme {
 	 * @since  1.0.0
 	 */
 	public function init_theme() {
-		$this->initial_values                        = new Initial_Value();
-		$this->main_object                           = new Main(
+		$this->initial_values = new Initial_Value();
+		$this->main_object    = new Main(
 			new Hook(),
 			$this->initial_values,
-			new Admin_Menu1( $this->initial_values->sample_menu_page() ),
-			new Admin_Sub_Menu1($this->initial_values->sample_sub_menu_page1()),
-			new Admin_Sub_Menu2($this->initial_values->sample_sub_menu_page2()),
+			[
+				new Admin_Menu1( $this->initial_values->sample_menu_page() )
+			],
+			[
+				new Admin_Sub_Menu1( $this->initial_values->sample_sub_menu_page1() ),
+				new Admin_Sub_Menu2( $this->initial_values->sample_sub_menu_page2() ),
+			],
 			new Sample_Ajax_1( 'sample_ajax_call_1' ),
 			new Sample_Ajax_2( 'sample_ajax_call_2' )
+
 		);
 		$this->main_object->init_main();
 	}

@@ -33,8 +33,8 @@ class Initial_Value {
 	 * Initial values to create admin menu page.
 	 *
 	 * @access public
-	 * @see    Inc/Admin/Admin_Menu
 	 * @return array It returns all of arguments that add_menu_page function needs.
+	 * @see    Inc/Admin/Admin_Menu
 	 */
 	public function sample_menu_page() {
 		$initial_value = [
@@ -45,6 +45,7 @@ class Initial_Value {
 			'callable_function' => 'management_panel_handler',//it can be null
 			'icon_url'          => 'dashicons-welcome-widgets-menus',
 			'position'          => 11,
+			'identifier'        => 'sample_menu_page1'
 		];
 
 		return $initial_value;
@@ -54,8 +55,8 @@ class Initial_Value {
 	 * Initial values to create admin submenu page (submenu1).
 	 *
 	 * @access public
-	 * @see    Inc/Admin/Admin_Sub_Menu
 	 * @return array It returns all of arguments that add_submenu_page function needs.
+	 * @see    Inc/Admin/Admin_Sub_Menu
 	 */
 	public function sample_sub_menu_page1() {
 		$initial_value = [
@@ -75,8 +76,8 @@ class Initial_Value {
 	 *
 	 * @access public
 	 * @static
-	 * @see    Includes/Admin/Admin_Sub_Menu
 	 * @return array It returns all of arguments that add_submenu_page function needs.
+	 * @see    Includes/Admin/Admin_Sub_Menu
 	 */
 	public function sample_sub_menu_page2() {
 		$initial_value = [
