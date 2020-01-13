@@ -12,7 +12,7 @@
  * @since      1.0.1
  */
 
-namespace Theme_Name_Name_Space\Inc\Abstracts;
+namespace Theme_Name_Name_Space\Inc\Interfaces;
 
 use Theme_Name_Name_Space\Inc\Config\Initial_Value;
 
@@ -26,8 +26,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * This file contains Action_Hook_Interface_Interface. If you to use add_action in your class,
  * you must use from this contract to implement it.
  *
- * @package    Plugin_Name_Name_Space
- * @author     Your_Name <youremail@nomail.com>
+ * @package    Theme_Name_Name_Space
+ * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  */
 interface Action_Hook_Interface {
 

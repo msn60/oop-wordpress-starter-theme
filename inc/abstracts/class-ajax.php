@@ -13,7 +13,7 @@
 
 namespace Theme_Name_Name_Space\Inc\Abstracts;
 
-use Theme_Name_Name_Space\Inc\Abstracts\Action_Hook_Interface;
+use Theme_Name_Name_Space\Inc\Interfaces\Action_Hook_Interface;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

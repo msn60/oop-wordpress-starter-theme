@@ -18,7 +18,11 @@ namespace Theme_Name_Name_Space\Inc\Core;
  * */
 
 use Theme_Name_Name_Space\Inc\Abstracts\{
-	Admin_Menu, Admin_Sub_Menu, Ajax, Action_Hook_Interface, Filter_Hook_Interface
+	Admin_Menu, Admin_Sub_Menu, Ajax
+};
+
+use Theme_Name_Name_Space\Inc\Interfaces\{
+	Action_Hook_Interface, Filter_Hook_Interface
 };
 use Theme_Name_Name_Space\Inc\Admin\{
 	Admin_Menu1, Admin_Sub_Menu1, Admin_Sub_Menu2, Meta_box
@@ -145,7 +149,6 @@ class Main implements Action_Hook_Interface {
 	 * @see    http://farhadnote.ir/articles/2017/11/14/dependency-injection.html
 	 */
 	public function init_main() {
-
 
 		$this->hooks->theme_add_actions();
 		$this->hooks->theme_add_filters();
