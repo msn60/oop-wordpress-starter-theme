@@ -186,10 +186,10 @@ class Main {
 	 */
 	private function set_admin_menus() {
 		foreach ( $this->admin_menus as $admin_menu ) {
-			$admin_menu->set_add_action();
+			$admin_menu->register_action();
 		}
 		foreach ( $this->admin_sub_menus as $admin_sub_menu ) {
-			$admin_sub_menu->set_add_action();
+			$admin_sub_menu->register_action();
 		}
 	}
 

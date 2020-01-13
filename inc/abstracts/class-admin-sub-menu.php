@@ -15,6 +15,7 @@
 namespace Theme_Name_Name_Space\Inc\Abstracts;
 
 use Theme_Name_Name_Space\Inc\Config\Initial_Value;
+use Theme_Name_Name_Space\Inc\Abstracts\Action_Hook_Interface;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -30,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @see        wp-admin/includes/plugin.php
  * @see        https://developer.wordpress.org/reference/functions/add_submenu_page/
  */
-abstract class Admin_Sub_Menu {
+abstract class Admin_Sub_Menu implements Action_Hook_Interface{
 
 	/**
 	 * Define parent_slug property in Admin_Sub_Menu class.
@@ -127,14 +128,16 @@ abstract class Admin_Sub_Menu {
 
 	}
 
+
 	/**
-	 * call 'admin_menu' add_action to create Admin submenu page
-	 *
-	 * @access public
-	 */
-	public function set_add_action() {
+		 * call 'admin_menu' add_action to create Admin submenu page
+		 *
+		 * @access public
+		 */
+	public function register_action() {
 		add_action( 'admin_menu', array( $this, 'add_admin_sub_menu_page' ) );
 	}
+
 
 	/**
 	 * Method sub_menu_panel_handler in Admin_Sub_Menu Class
