@@ -20,6 +20,7 @@ namespace Theme_Name_Name_Space\Inc\Core;
 use function PHPSTORM_META\type;
 use Theme_Name_Name_Space\Inc\Abstracts\Admin_Menu;
 use Theme_Name_Name_Space\Inc\Abstracts\Admin_Sub_Menu;
+use Theme_Name_Name_Space\Inc\Abstracts\Ajax;
 use Theme_Name_Name_Space\Inc\Admin\{
 	Admin_Menu1, Admin_Sub_Menu1, Admin_Sub_Menu2, Meta_box
 };
@@ -31,7 +32,9 @@ use Theme_Name_Name_Space\Inc\Parts\{
 	Sample_Ajax_1, Sample_Ajax_2
 };
 
-use Theme_Name_Name_Space\Inc\Functions\{Utility, Check_Type};
+use Theme_Name_Name_Space\Inc\Functions\{
+	Utility, Check_Type
+};
 use Theme_Name_Name_Space\Inc\Core\Hook;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -80,13 +83,9 @@ class Main {
 	 */
 	protected $admin_sub_menus;
 	/**
-	 * @var Sample_Ajax_1 $sample_ajax_1
+	 * @var Ajax[] $ajax_calls
 	 */
-	protected $sample_ajax_1;
-	/**
-	 * @var Sample_Ajax_2 $sample_ajax_2
-	 */
-	protected $sample_ajax_2;
+	protected $ajax_calls;
 	/**
 	 * @var Initial_Value $initial_values An object  to keep all of initial values for theme
 	 */
@@ -109,8 +108,7 @@ class Main {
 		Initial_Value $initial_values,
 		array $admin_menus = null,
 		array $admin_sub_menus = null,
-		Sample_Ajax_1 $sample_ajax_1 = null,
-		Sample_Ajax_2 $sample_ajax_2 = null
+		array $ajax_calls = null
 
 	) {
 
@@ -127,10 +125,12 @@ class Main {
 
 		$this->hooks           = $hooks;
 		$this->initial_values  = $initial_values;
-		$this->admin_menus     = $this->set_array_by_type( $admin_menus, Admin_Menu::class )['valid'];
-		$this->admin_sub_menus = $this->set_array_by_type( $admin_sub_menus, Admin_Sub_Menu::class )['valid'];
-		$this->sample_ajax_1 = $sample_ajax_1;
-		$this->sample_ajax_2 = $sample_ajax_2;
+		/*
+		 * Checking for valid types
+		 * */
+		$this->admin_menus     = $this->set_array_by_parent_type( $admin_menus, Admin_Menu::class )['valid'];
+		$this->admin_sub_menus = $this->set_array_by_parent_type( $admin_sub_menus, Admin_Sub_Menu::class )['valid'];
+		$this->ajax_calls      = $this->set_array_by_parent_type( $ajax_calls, Ajax::class )['valid'];;
 
 	}
 
@@ -174,8 +174,9 @@ class Main {
 	 * @since  1.0.1
 	 */
 	public function handle_ajax_call() {
-		$this->sample_ajax_1->set_add_actions();
-		$this->sample_ajax_2->set_add_actions();
+		foreach ($this->ajax_calls as $ajax_call) {
+			$ajax_call->register_action();
+		}
 	}
 
 	/**

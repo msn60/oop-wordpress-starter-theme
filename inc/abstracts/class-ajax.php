@@ -13,6 +13,8 @@
 
 namespace Theme_Name_Name_Space\Inc\Abstracts;
 
+use Theme_Name_Name_Space\Inc\Abstracts\Action_Hook_Interface;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -24,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package    Plugin_Name_Name_Space
  * @author     Your_Name <youremail@nomail.com>
  */
-abstract class Ajax {
+abstract class Ajax implements Action_Hook_Interface {
 	/**
 	 * Data that need for wp_ajax_sample_ajax_call_1
 	 *
@@ -68,12 +70,13 @@ abstract class Ajax {
 	 * @since  1.0.1
 	 *
 	 */
-	public function set_add_actions() {
+	public function register_action() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_script' ), 10 );
 		//hook to add your ajax request
 		add_action( 'wp_ajax_' . $this->action, [ $this, 'handle' ] );
 		add_action( 'wp_ajax_nopriv_' . $this->action, [ $this, 'handle' ] );
 	}
+
 
 	/**
 	 * Method to register script and localize it

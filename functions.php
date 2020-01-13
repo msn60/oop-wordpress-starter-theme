@@ -112,8 +112,10 @@ final class Theme_Name_Theme {
 				new Admin_Sub_Menu1( $this->initial_values->sample_sub_menu_page1() ),
 				new Admin_Sub_Menu2( $this->initial_values->sample_sub_menu_page2() ),
 			],
-			new Sample_Ajax_1( 'sample_ajax_call_1' ),
-			new Sample_Ajax_2( 'sample_ajax_call_2' )
+			[
+				new Sample_Ajax_1( 'sample_ajax_call_1' ),
+				new Sample_Ajax_2( 'sample_ajax_call_2' )
+			]
 
 		);
 		$this->main_object->init_main();
