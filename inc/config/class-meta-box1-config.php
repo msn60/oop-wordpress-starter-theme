@@ -65,7 +65,8 @@ trait Meta_Box1_Config {
 	 */
 	public function render_meta_box1( $post, $meta_key, $single, $action = null, $nonce_name = null ) {
 
-		// Add an nonce field so we can check for it later.
+        $this->render_meta_box1( $post, $this->meta_key, $this->single, $this->action, $this->nonce_name );
+	    // Add an nonce field so we can check for it later.
 		wp_nonce_field( $action, $nonce_name );
 
 		// Use get_post_meta to retrieve an existing value from the database.

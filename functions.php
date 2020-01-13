@@ -15,7 +15,7 @@ use Theme_Name_Name_Space\Inc\Core\{
 	Constant, Main, Hook
 };
 use Theme_Name_Name_Space\Inc\Admin\{
-	Admin_Menu1, Admin_Sub_Menu1, Admin_Sub_Menu2
+	Admin_Menu1, Admin_Sub_Menu1, Admin_Sub_Menu2,Meta_Box1
 };
 
 use Theme_Name_Name_Space\Inc\Config\Initial_Value;
@@ -111,6 +111,9 @@ final class Theme_Name_Theme {
 			[
 				new Admin_Sub_Menu1( $this->initial_values->sample_sub_menu_page1() ),
 				new Admin_Sub_Menu2( $this->initial_values->sample_sub_menu_page2() ),
+			],
+			[
+				new Meta_Box1($this->initial_values->sample_meta_box1())
 			],
 			[
 				new Sample_Ajax_1( 'sample_ajax_call_1' ),

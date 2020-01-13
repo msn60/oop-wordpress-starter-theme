@@ -18,17 +18,17 @@ namespace Theme_Name_Name_Space\Inc\Core;
  * */
 
 use Theme_Name_Name_Space\Inc\Abstracts\{
-	Admin_Menu, Admin_Sub_Menu, Ajax
+	Admin_Menu, Admin_Sub_Menu, Ajax, Meta_box
 };
 
 use Theme_Name_Name_Space\Inc\Interfaces\{
 	Action_Hook_Interface, Filter_Hook_Interface
 };
 use Theme_Name_Name_Space\Inc\Admin\{
-	Admin_Menu1, Admin_Sub_Menu1, Admin_Sub_Menu2, Meta_box
+	Admin_Menu1, Admin_Sub_Menu1, Admin_Sub_Menu2
 };
 use Theme_Name_Name_Space\Inc\Config\{
-	Initial_Value, Meta_Box1_Config, Meta_Box2_Config
+	Initial_Value
 };
 
 use Theme_Name_Name_Space\Inc\Parts\{
@@ -53,8 +53,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  */
 class Main implements Action_Hook_Interface {
-	use Meta_Box1_Config;
-	use Meta_Box2_Config;
 	use Utility;
 	use Check_Type;
 	/**
@@ -93,6 +91,10 @@ class Main implements Action_Hook_Interface {
 	 * @var Initial_Value $initial_values An object  to keep all of initial values for theme
 	 */
 	protected $initial_values;
+	/**
+	 * @var Meta_box[] $meta_boxes
+	 */
+	protected $meta_boxes;
 
 	/**
 	 * Main constructor.
@@ -111,6 +113,7 @@ class Main implements Action_Hook_Interface {
 		Initial_Value $initial_values,
 		array $admin_menus = null,
 		array $admin_sub_menus = null,
+		array $meta_boxes = null,
 		array $ajax_calls = null
 
 	) {
@@ -133,7 +136,9 @@ class Main implements Action_Hook_Interface {
 		 * */
 		$this->admin_menus     = $this->set_array_by_parent_type( $admin_menus, Admin_Menu::class )['valid'];
 		$this->admin_sub_menus = $this->set_array_by_parent_type( $admin_sub_menus, Admin_Sub_Menu::class )['valid'];
+		$this->meta_boxes      = $this->set_array_by_parent_type( $meta_boxes, Meta_box::class )['valid'];;
 		$this->ajax_calls      = $this->set_array_by_parent_type( $ajax_calls, Ajax::class )['valid'];;
+
 
 	}
 
@@ -154,40 +159,26 @@ class Main implements Action_Hook_Interface {
 		$this->hooks->theme_add_filters();
 		$this->hooks->disable_feeds();
 
+		/*		if ( is_admin() ) {
+					add_action( 'load-post.php', array( $this, 'set_meta_boxes' ) );
+					add_action( 'load-post-new.php', array( $this, 'set_meta_boxes' ) );
+				} */
+		$this->register_action();
+
+	}
+
+	public function register_action() {
 		if ( is_admin() ) {
-			/*
-			 * set meta boxes here
-			 * */
-			add_action( 'load-post.php', array( $this, 'set_meta_boxes' ) );
-			add_action( 'load-post-new.php', array( $this, 'set_meta_boxes' ) );
+			$this->set_admin_menus();
+			$this->set_meta_boxes();
 		} else {
 			/*
 			 * Remove extra actions from your WordPress site & some conditions if your are not in admin dashboard
 			 * */
 			$this->hooks->remove_extra_actions();
 		}
-		$this->register_action();
-
-	}
-
-	public function register_action() {
 		$this->handle_ajax_call();
-		if ( is_admin() ) {
-			$this->set_admin_menus();
-		}
 
-	}
-
-	/**
-	 * Method to handle ajax calls in theme
-	 *
-	 * @access public
-	 * @since  1.0.1
-	 */
-	private function handle_ajax_call() {
-		foreach ( $this->ajax_calls as $ajax_call ) {
-			$ajax_call->register_action();
-		}
 	}
 
 	/**
@@ -205,7 +196,26 @@ class Main implements Action_Hook_Interface {
 		}
 	}
 
+	/*
+	 * Method to set actions for meta boxes in theme
+	 * */
+	public function set_meta_boxes() {
+		foreach ( $this->meta_boxes as $meta_box ) {
+			$meta_box->register_action();
+		}
+	}
 
+	/**
+	 * Method to handle ajax calls in theme
+	 *
+	 * @access public
+	 * @since  1.0.1
+	 */
+	private function handle_ajax_call() {
+		foreach ( $this->ajax_calls as $ajax_call ) {
+			$ajax_call->register_action();
+		}
+	}
 
 	/**
 	 * theme_name getter method
@@ -251,13 +261,6 @@ class Main implements Action_Hook_Interface {
 	 */
 	public function set_theme_version( string $theme_version ): void {
 		$this->theme_version = $theme_version;
-	}
-
-
-	public function set_meta_boxes() {
-
-		$meta_box_obj1 = new Meta_box( $this->sample_meta_box1() );
-		$meta_box_obj2 = new Meta_box( $this->sample_meta_box2() );
 	}
 
 

@@ -92,4 +92,32 @@ class Initial_Value {
 		return $initial_value;
 	}
 
+	/**
+	 * Initial values to create meta box 1.
+	 *
+	 * @access public
+	 * @see    https://developer.wordpress.org/reference/functions/get_post_meta/
+	 * @see    https://developer.wordpress.org/reference/functions/add_meta_box/
+	 * @return array It returns all of arguments that add_meta_box function needs.
+	 */
+	public function sample_meta_box1() {
+		$initial_value = [
+
+			'id'            => 'meta_box_1_id',
+			'title'         => esc_html__( 'Meta box1 Headline', 'msn-starter-theme' ),
+			'callback'      => 'render_content',
+			'screens'       => array( 'post', 'page' ),//null - optional
+			'context'       => 'advanced', //optional
+			'priority'      => 'high', //optional
+			'callback_args' => null, //optional
+			'meta_key'      => '_msn_oop_starter_meta_box_key_1',
+			'single'        => true, //the result of get_post_meta Will be an array if $single is false
+			'action'        => 'oop_msn_starter_meta_box1',
+			'nonce_name'    => 'oop_msn_starter_meta_box1_nonce'
+
+		];
+
+		return $initial_value;
+	}
+
 }
