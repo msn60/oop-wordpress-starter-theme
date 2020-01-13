@@ -17,10 +17,9 @@ namespace Theme_Name_Name_Space\Inc\Core;
  * Define your namespaces here by use keyword
  * */
 
-use function PHPSTORM_META\type;
-use Theme_Name_Name_Space\Inc\Abstracts\Admin_Menu;
-use Theme_Name_Name_Space\Inc\Abstracts\Admin_Sub_Menu;
-use Theme_Name_Name_Space\Inc\Abstracts\Ajax;
+use Theme_Name_Name_Space\Inc\Abstracts\{
+	Admin_Menu, Admin_Sub_Menu, Ajax, Action_Hook_Interface, Filter_Hook_Interface
+};
 use Theme_Name_Name_Space\Inc\Admin\{
 	Admin_Menu1, Admin_Sub_Menu1, Admin_Sub_Menu2, Meta_box
 };
@@ -49,7 +48,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package    Theme_Name_Name_Space
  * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  */
-class Main {
+class Main implements Action_Hook_Interface {
 	use Meta_Box1_Config;
 	use Meta_Box2_Config;
 	use Utility;
@@ -123,8 +122,8 @@ class Main {
 			$this->theme_version = 'msn-oop-starter';
 		}
 
-		$this->hooks           = $hooks;
-		$this->initial_values  = $initial_values;
+		$this->hooks          = $hooks;
+		$this->initial_values = $initial_values;
 		/*
 		 * Checking for valid types
 		 * */
@@ -147,12 +146,12 @@ class Main {
 	 */
 	public function init_main() {
 
+
 		$this->hooks->theme_add_actions();
 		$this->hooks->theme_add_filters();
 		$this->hooks->disable_feeds();
-		$this->handle_ajax_call();
+
 		if ( is_admin() ) {
-			$this->set_admin_menus();
 			/*
 			 * set meta boxes here
 			 * */
@@ -164,6 +163,15 @@ class Main {
 			 * */
 			$this->hooks->remove_extra_actions();
 		}
+		$this->register_action();
+
+	}
+
+	public function register_action() {
+		$this->handle_ajax_call();
+		if ( is_admin() ) {
+			$this->set_admin_menus();
+		}
 
 	}
 
@@ -173,8 +181,8 @@ class Main {
 	 * @access public
 	 * @since  1.0.1
 	 */
-	public function handle_ajax_call() {
-		foreach ($this->ajax_calls as $ajax_call) {
+	private function handle_ajax_call() {
+		foreach ( $this->ajax_calls as $ajax_call ) {
 			$ajax_call->register_action();
 		}
 	}
@@ -193,6 +201,8 @@ class Main {
 			$admin_sub_menu->register_action();
 		}
 	}
+
+
 
 	/**
 	 * theme_name getter method
