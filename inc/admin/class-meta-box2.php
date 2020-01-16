@@ -58,7 +58,8 @@ class Meta_Box2 extends Meta_box {
 		// Use get_post_meta to retrieve an existing value from the database.
 		$values = get_post_meta( $post->ID, $this->meta_key, $this->single );
 		if ( ! empty( $values ) ) {
-			$values = array_shift( get_post_meta( $post->ID, $this->meta_key, $this->single ) );
+		    $values = get_post_meta( $post->ID, $this->meta_key, $this->single );
+			$values = array_shift( $values );
 		}
 
 		// Display the form, using the current value.

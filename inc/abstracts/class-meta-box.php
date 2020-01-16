@@ -214,11 +214,11 @@ abstract class Meta_box implements Action_Hook_Interface {
 		 * We need to verify this came from the our screen and with proper authorization,
 		 * because save_post can be triggered at other times.
 		 */
-		$this->verify_before_save( $post_id );
+		if ( $this->verify_before_save( $post_id ) == 'verified' ) {
+			/* OK, it's safe for us to save the data now. */
+			$this->save_meta_box( $post_id );
+		}
 
-
-		/* OK, it's safe for us to save the data now. */
-		$this->save_meta_box( $post_id );
 
 	}
 
@@ -254,6 +254,8 @@ abstract class Meta_box implements Action_Hook_Interface {
 				return $post_id;
 			}
 		}
+
+		return 'verified';
 	}
 
 	/**
