@@ -38,6 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Hook {
 
 	use Utility;
+
 	/**
 	 * Init function for Control inversion.
 	 * This is init function to use dependency injection and you can use it for hooking your file
@@ -338,6 +339,23 @@ class Hook {
 		 */
 		add_image_size( 'theme-name-name-space-landscape', 400, 260, true );
 		add_image_size( 'theme-name-name-space-portrait', 480, 650, true );
+
+	}
+
+	/*
+	 * Register rest field for posts
+	 *
+	 * @see https://stackoverflow.com/questions/37641689/wp-rest-api-get-posts-with-their-meta
+	 * @see https://torquemag.io/2015/07/working-with-post-meta-data-using-the-wordpress-rest-api/
+	 * @see https://n8finch.com/getting-post-meta-wp-rest-api/
+	 * @since 1.0.1
+	 * */
+	public function add_meta_rest_field() {
+		register_rest_field( 'post', 'metadata', array(
+			'get_callback' => function ( $data ) {
+				return get_post_meta( $data['id'], '', '' );
+			},
+		) );
 	}
 
 	/**

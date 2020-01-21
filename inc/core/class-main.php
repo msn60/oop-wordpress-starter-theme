@@ -158,6 +158,8 @@ class Main implements Action_Hook_Interface {
 		$this->hooks->theme_add_actions();
 		$this->hooks->theme_add_filters();
 		$this->hooks->disable_feeds();
+		//if you need to get post metas in response of WP REST API for posts
+		$this->hooks->add_meta_rest_field();
 
 		/*		if ( is_admin() ) {
 					add_action( 'load-post.php', array( $this, 'set_meta_boxes' ) );
