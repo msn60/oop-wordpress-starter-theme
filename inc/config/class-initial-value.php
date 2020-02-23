@@ -38,8 +38,8 @@ class Initial_Value {
 	 */
 	public function sample_menu_page() {
 		$initial_value = [
-			'page_title'        => esc_html__( 'Msn Theme Option', 'msn-starter-theme' ),
-			'menu_title'        => esc_html__( 'Theme Option', 'msn-starter-theme' ),
+			'page_title'        => esc_html__( 'Msn Theme Option', MSN_TEXT_DOMAIN_NAME ),
+			'menu_title'        => esc_html__( 'Theme Option', MSN_TEXT_DOMAIN_NAME ),
 			'capability'        => 'manage_options',
 			'menu_slug'         => 'theme-name-option-page-url',
 			'callable_function' => 'management_panel_handler',//it can be null
@@ -61,8 +61,8 @@ class Initial_Value {
 	public function sample_sub_menu_page1() {
 		$initial_value = [
 			'parent-slug'       => 'theme-name-option-page-url',
-			'page_title'        => esc_html__( 'Theme Submenu 1', 'msn-starter-theme' ),
-			'menu_title'        => esc_html__( 'Theme Submenu 1', 'msn-starter-theme' ),
+			'page_title'        => esc_html__( 'Theme Submenu 1', MSN_TEXT_DOMAIN_NAME ),
+			'menu_title'        => esc_html__( 'Theme Submenu 1', MSN_TEXT_DOMAIN_NAME ),
 			'capability'        => 'manage_options',
 			'menu_slug'         => 'theme-name-option-page-url',
 			'callable_function' => 'sub_menu1_panel_handler',
@@ -82,8 +82,8 @@ class Initial_Value {
 	public function sample_sub_menu_page2() {
 		$initial_value = [
 			'parent-slug'       => 'theme-name-option-page-url',
-			'page_title'        => esc_html__( 'Theme Submenu 2', 'msn-starter-theme' ),
-			'menu_title'        => esc_html__( 'Theme Submenu 2', 'msn-starter-theme' ),
+			'page_title'        => esc_html__( 'Theme Submenu 2', MSN_TEXT_DOMAIN_NAME ),
+			'menu_title'        => esc_html__( 'Theme Submenu 2', MSN_TEXT_DOMAIN_NAME ),
 			'capability'        => 'manage_options',
 			'menu_slug'         => 'theme-name-option-page-url-2',
 			'callable_function' => 'sub_menu2_panel_handler',
@@ -104,7 +104,7 @@ class Initial_Value {
 		$initial_value = [
 
 			'id'            => 'meta_box_1_id',
-			'title'         => esc_html__( 'Meta box1 Headline', 'msn-starter-theme' ),
+			'title'         => esc_html__( 'Meta box1 Headline', MSN_TEXT_DOMAIN_NAME ),
 			'callback'      => 'render_content',
 			'screens'       => array( 'post', 'page' ),//null - optional
 			'context'       => 'advanced', //optional
@@ -132,7 +132,7 @@ class Initial_Value {
 		$initial_value = [
 
 			'id'            => 'meta_box_2_id',
-			'title'         => esc_html__( 'Meta box2 Headline', 'msn-starter-theme' ),
+			'title'         => esc_html__( 'Meta box2 Headline', MSN_TEXT_DOMAIN_NAME ),
 			'callback'      => 'render_content',
 			'screens'       => null,//null - optional
 			'context'       => 'side', //optional

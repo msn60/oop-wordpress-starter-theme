@@ -42,7 +42,7 @@
     </div>
     <hr>
     <div>
-        <?php the_terms( get_the_ID(), 'category', esc_html__('categories: ','msn-starter-theme'), ' / ' ); ?>
+        <?php the_terms( get_the_ID(), 'category', esc_html__('categories: ','msn-oop-starter-theme'), ' / ' ); ?>
     </div>
     <hr>
     <!-- Show comments -->

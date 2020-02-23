@@ -38,7 +38,7 @@ use Theme_Name_Name_Space\Inc\Parts\{
 use Theme_Name_Name_Space\Inc\Functions\{
 	Utility, Check_Type
 };
-use Theme_Name_Name_Space\Inc\Core\Hook;
+use Theme_Name_Name_Space\Inc\Core\Public_Hook;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -109,7 +109,7 @@ class Main implements Action_Hook_Interface {
 	 *
 	 */
 	public function __construct(
-		Hook $hooks,
+		Public_Hook $hooks,
 		Initial_Value $initial_values,
 		array $admin_menus = null,
 		array $admin_sub_menus = null,
@@ -134,11 +134,10 @@ class Main implements Action_Hook_Interface {
 		/*
 		 * Checking for valid types
 		 * */
-		$this->admin_menus     = $this->set_array_by_parent_type( $admin_menus, Admin_Menu::class )['valid'];
-		$this->admin_sub_menus = $this->set_array_by_parent_type( $admin_sub_menus, Admin_Sub_Menu::class )['valid'];
-		$this->meta_boxes      = $this->set_array_by_parent_type( $meta_boxes, Meta_box::class )['valid'];;
-		$this->ajax_calls      = $this->set_array_by_parent_type( $ajax_calls, Ajax::class )['valid'];;
-
+		$this->admin_menus     = $this->check_array_by_parent_type( $admin_menus, Admin_Menu::class )['valid'];
+		$this->admin_sub_menus = $this->check_array_by_parent_type( $admin_sub_menus, Admin_Sub_Menu::class )['valid'];
+		$this->meta_boxes      = $this->check_array_by_parent_type( $meta_boxes, Meta_box::class )['valid'];;
+		$this->ajax_calls = $this->check_array_by_parent_type( $ajax_calls, Ajax::class )['valid'];;
 
 	}
 
@@ -155,29 +154,17 @@ class Main implements Action_Hook_Interface {
 	 */
 	public function init_main() {
 
-		$this->hooks->theme_add_actions();
-		$this->hooks->theme_add_filters();
-		$this->hooks->disable_feeds();
-		//if you need to get post metas in response of WP REST API for posts
-		$this->hooks->add_meta_rest_field();
-
-		/*		if ( is_admin() ) {
-					add_action( 'load-post.php', array( $this, 'set_meta_boxes' ) );
-					add_action( 'load-post-new.php', array( $this, 'set_meta_boxes' ) );
-				} */
-		$this->register_action();
-
+		$this->hooks->register_add_action();
+		$this->hooks->register_add_filter();
+		$this->register_add_action();
 	}
 
-	public function register_action() {
+	public function register_add_action() {
 		if ( is_admin() ) {
 			$this->set_admin_menus();
 			$this->set_meta_boxes();
-		} else {
-			/*
-			 * Remove extra actions from your WordPress site & some conditions if your are not in admin dashboard
-			 * */
-			$this->hooks->remove_extra_actions();
+			/*add_action( 'load-post.php', array( $this, 'set_meta_boxes' ) );
+			add_action( 'load-post-new.php', array( $this, 'set_meta_boxes' ) );*/
 		}
 		$this->handle_ajax_call();
 
@@ -191,10 +178,10 @@ class Main implements Action_Hook_Interface {
 	 */
 	private function set_admin_menus() {
 		foreach ( $this->admin_menus as $admin_menu ) {
-			$admin_menu->register_action();
+			$admin_menu->register_add_action();
 		}
 		foreach ( $this->admin_sub_menus as $admin_sub_menu ) {
-			$admin_sub_menu->register_action();
+			$admin_sub_menu->register_add_action();
 		}
 	}
 
@@ -203,7 +190,7 @@ class Main implements Action_Hook_Interface {
 	 * */
 	public function set_meta_boxes() {
 		foreach ( $this->meta_boxes as $meta_box ) {
-			$meta_box->register_action();
+			$meta_box->register_add_action();
 		}
 	}
 
@@ -215,7 +202,7 @@ class Main implements Action_Hook_Interface {
 	 */
 	private function handle_ajax_call() {
 		foreach ( $this->ajax_calls as $ajax_call ) {
-			$ajax_call->register_action();
+			$ajax_call->register_add_action();
 		}
 	}
 

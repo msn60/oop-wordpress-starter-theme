@@ -39,7 +39,7 @@ trait Check_Type {
 	 * @param array  $items Passed array to check type of each items inside it
 	 * @param string $type  type to check
 	 */
-	public function set_array_by_parent_type( array $items, $type ): array {
+	public function check_array_by_parent_type( array $items, $type ): array {
 		$result['valid']   = [];
 		$result['invalid'] = [];
 		foreach ( $items as $item ) {

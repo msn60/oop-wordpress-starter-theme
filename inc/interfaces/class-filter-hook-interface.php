@@ -35,5 +35,5 @@ interface Filter_Hook_Interface {
 	 * Register filters that the object needs to be subscribed to.
 	 *
 	 */
-	public function register_filter();
+	public function register_add_filter();
 }

@@ -63,7 +63,7 @@ class Meta_Box1 extends Meta_box{
 		// Display the form, using the current value.
 		?>
         <label for="oop_msn_starter_new_field">
-			<?php _e( 'Description for this field', 'msn-starter-theme' ); ?>
+			<?php _e( 'Description for this field', MSN_TEXT_DOMAIN_NAME ); ?>
         </label>
         <input type="text" id="oop_msn_starter_new_field" name="oop_msn_starter_new_field" value="<?php echo esc_attr( $value ); ?>" size="25"/>
 		<?php

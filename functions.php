@@ -12,10 +12,10 @@
  */
 
 use Theme_Name_Name_Space\Inc\Core\{
-	Constant, Main, Hook
+	Constant, Main, Public_Hook
 };
 use Theme_Name_Name_Space\Inc\Admin\{
-	Admin_Menu1, Admin_Sub_Menu1, Admin_Sub_Menu2,Meta_Box1, Meta_Box2
+	Admin_Menu1, Admin_Sub_Menu1, Admin_Sub_Menu2, Meta_Box1, Meta_Box2
 };
 
 use Theme_Name_Name_Space\Inc\Config\Initial_Value;
@@ -103,7 +103,7 @@ final class Theme_Name_Theme {
 	public function init_theme() {
 		$this->initial_values = new Initial_Value();
 		$this->main_object    = new Main(
-			new Hook(),
+			new Public_Hook(),
 			$this->initial_values,
 			[
 				new Admin_Menu1( $this->initial_values->sample_menu_page() )
@@ -113,8 +113,8 @@ final class Theme_Name_Theme {
 				new Admin_Sub_Menu2( $this->initial_values->sample_sub_menu_page2() ),
 			],
 			[
-				new Meta_Box1($this->initial_values->sample_meta_box1()),
-				new Meta_Box2($this->initial_values->sample_meta_box2()),
+				new Meta_Box1( $this->initial_values->sample_meta_box1() ),
+				new Meta_Box2( $this->initial_values->sample_meta_box2() ),
 			],
 			[
 				new Sample_Ajax_1( 'sample_ajax_call_1' ),
@@ -125,16 +125,12 @@ final class Theme_Name_Theme {
 		$this->main_object->init_main();
 	}
 
+
+
 }
 
 $theme_name_theme_object = Theme_Name_Theme::instance();
 $theme_name_theme_object->init_theme();
-
-
-
-
-
-
 
 
 

@@ -14,8 +14,8 @@
     <div class="msn-metabox">
     <span class="msn-comments">
         <?php
-        comments_popup_link( esc_html__( 'Leave a comment', 'msn-starter-theme' ), esc_html__( '1 Comment', 'msn-starter-theme' ),
-            esc_html__( '% Comments', 'msn-starter-theme' ) );
+        comments_popup_link( esc_html__( 'Leave a comment', 'msn-oop-starter-theme' ), esc_html__( '1 Comment', 'msn-oop-starter-theme' ),
+            esc_html__( '% Comments', 'msn-oop-starter-theme' ) );
         ?>
     </span>
     </div>

@@ -1,8 +1,8 @@
 <?php
 /**
- * Hook Class File
+ * Public_Hook Class File
  *
- * This file contains Hook class which can manage and handle hooks in your theme
+ * This file contains Public_Hook class which can manage and handle hooks in your theme
  *
  * @package    Theme_Name_Name_Space
  * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
@@ -21,6 +21,8 @@ use Theme_Name_Name_Space\Inc\Abstracts\{
 	Admin_Menu, Admin_Sub_Menu
 };
 use Theme_Name_Name_Space\Inc\Functions\Utility;
+use Theme_Name_Name_Space\Inc\Interfaces\Action_Hook_Interface;
+use Theme_Name_Name_Space\Inc\Interfaces\Filter_Hook_Interface;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -29,38 +31,86 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class Hook
  *
- * This file contains Hook class which can manage and handle hooks in your theme
+ * This file contains Public_Hook class which can manage and handle hooks in your theme
  *
  * @package    Theme_Name_Name_Space
  * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  *
  */
-class Hook {
+class Public_Hook implements Action_Hook_Interface, Filter_Hook_Interface {
 
 	use Utility;
 
 	/**
-	 * Init function for Control inversion.
-	 * This is init function to use dependency injection and you can use it for hooking your file
-	 * inside it like actions or filters
+	 * Register add_actions for theme
 	 *
-	 * @access private
 	 * @since  1.0.1
 	 *
-	 * @param \Theme_Name_Name_Space\Inc\Core\Main $main_object
-	 *
 	 * @see    https://carlalexander.ca/designing-class-wordpress-hooks/
-	 * @see    http://farhadnote.ir/articles/2017/11/14/dependency-injection.html
 	 */
-	public function theme_add_actions() {
+	public function register_add_action() {
 
-		add_action( 'after_setup_theme', array( $this, 'setup' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'scripts' ), 10 );
+		$this->register_after_setup_theme_action();
+		$this->set_enqueue_scripts_action();
+		$this->disable_feeds();
+		//if you need to get post metas in response of WP REST API for posts
+		$this->add_meta_rest_field();
 		/*add_action( 'widgets_init', array( $main_object, 'widgets_init' ) );*/
+		if ( ! is_admin() ) {
+			/*
+			 * Remove extra actions from your WordPress site & some conditions if your are not in admin dashboard
+			 * */
+			$this->remove_extra_actions();
+		}
 
 	}
 
-	public function theme_add_filters() {
+	/**
+	 * Register after_setup_theme_action
+	 */
+	public function register_after_setup_theme_action() {
+		add_action( 'after_setup_theme', array( $this, 'after_setup_theme_action' ) );
+	}
+
+	/**
+	 * Register enqueue scripts action
+	 */
+	public function set_enqueue_scripts_action() {
+		add_action( 'wp_enqueue_scripts', array( $this, 'register_styles_scripts' ), 10 );
+	}
+
+	/**
+	 * Actions for disable feeds
+	 *
+	 * @param \Theme_Name_Name_Space\Inc\Core\Main $main_object
+	 */
+	public function disable_feeds() {
+		add_action( 'do_feed', [ $this, 'set_disable_feeds_message' ], 1 );
+		add_action( 'do_feed_rdf', [ $this, 'set_disable_feeds_message' ], 1 );
+		add_action( 'do_feed_rss', [ $this, 'set_disable_feeds_message' ], 1 );
+		add_action( 'do_feed_rss2', [ $this, 'set_disable_feeds_message' ], 1 );
+		add_action( 'do_feed_atom', [ $this, 'set_disable_feeds_message' ], 1 );
+		add_action( 'do_feed_rss2_comments', [ $this, 'set_disable_feeds_message' ], 1 );
+		add_action( 'do_feed_atom_comments', [ $this, 'set_disable_feeds_message' ], 1 );
+	}
+
+	public function add_meta_rest_field() {
+		register_rest_field( 'post', 'metadata', array(
+			'get_callback' => function ( $data ) {
+				return get_post_meta( $data['id'], '', '' );
+			},
+		) );
+
+	}
+
+	/**
+	 * Register add_filters for theme
+	 *
+	 * @since  1.0.1
+	 *
+	 * @see    https://carlalexander.ca/designing-class-wordpress-hooks/
+	 */
+	public function register_add_filter() {
 		/*
 		 * Add portfolio page template in subdirectory
 		 * by using Utility trait
@@ -74,22 +124,6 @@ class Hook {
 			add_filter( 'show_admin_bar', '__return_false' );
 		}*/
 
-	}
-
-
-	/**
-	 * Actions for disable feeds
-	 *
-	 * @param \Theme_Name_Name_Space\Inc\Core\Main $main_object
-	 */
-	public function disable_feeds() {
-		add_action( 'do_feed', [ $this, 'disable_feeds' ], 1 );
-		add_action( 'do_feed_rdf', [ $this, 'disable_feeds' ], 1 );
-		add_action( 'do_feed_rss', [ $this, 'disable_feeds' ], 1 );
-		add_action( 'do_feed_rss2', [ $this, 'disable_feeds' ], 1 );
-		add_action( 'do_feed_atom', [ $this, 'disable_feeds' ], 1 );
-		add_action( 'do_feed_rss2_comments', [ $this, 'disable_feeds' ], 1 );
-		add_action( 'do_feed_atom_comments', [ $this, 'disable_feeds' ], 1 );
 	}
 
 	/**
@@ -145,6 +179,15 @@ class Hook {
 		remove_action( 'admin_print_styles', 'print_emoji_styles' );
 	}
 
+	/*
+	 * Register rest field for posts
+	 *
+	 * @see https://stackoverflow.com/questions/37641689/wp-rest-api-get-posts-with-their-meta
+	 * @see https://torquemag.io/2015/07/working-with-post-meta-data-using-the-wordpress-rest-api/
+	 * @see https://n8finch.com/getting-post-meta-wp-rest-api/
+	 * @see https://maheshwaghmare.com/search-post-by-post-meta-with-rest-api/
+	 * @since 1.0.1
+	 * */
 
 	/**
 	 * Sets up theme defaults and registers support for various WordPress features.
@@ -155,7 +198,7 @@ class Hook {
 	 *
 	 * @access public
 	 */
-	public function setup() {
+	public function after_setup_theme_action() {
 		/*
 		 * Load Localisation files.
 		 *
@@ -163,10 +206,10 @@ class Hook {
 		 */
 
 		// Loads wp-content/themes/child-theme-name/languages/theme_name_fa_IR.mo.
-		load_theme_textdomain( 'theme-name-name-space', get_stylesheet_directory() . '/languages' );
+		load_theme_textdomain( MSN_TEXT_DOMAIN_NAME, get_stylesheet_directory() . '/languages' );
 
 		// Loads wp-content/themes/msn-oop-starter/languages/heme_name_fa_IR.mo.
-		load_theme_textdomain( 'theme-name-name-space', THEME_NAME_LANG );
+		load_theme_textdomain( MSN_TEXT_DOMAIN_NAME, THEME_NAME_LANG );
 
 		/*
 		 * Enable support for Post Thumbnails on posts and pages.
@@ -199,9 +242,9 @@ class Hook {
 		register_nav_menus(
 			apply_filters(
 				'theme_name_name_space_nav_menus', array(
-					'primary'   => esc_html__( 'Primary Menu', 'theme-name-name-space' ),
-					'secondary' => esc_html__( 'Secondary Menu', 'theme-name-name-space' ),
-					'footer'    => esc_html__( 'Footer Menu', 'theme-name-name-space' ),
+					'primary'   => esc_html__( 'Primary Menu', MSN_TEXT_DOMAIN_NAME ),
+					'secondary' => esc_html__( 'Secondary Menu', MSN_TEXT_DOMAIN_NAME ),
+					'footer'    => esc_html__( 'Footer Menu', MSN_TEXT_DOMAIN_NAME ),
 				)
 			)
 		);
@@ -302,27 +345,27 @@ class Hook {
 			'editor-color-palette',
 			array(
 				array(
-					'name'  => esc_html__( 'Primary', 'msn-starter-theme' ),
+					'name'  => esc_html__( 'Primary', MSN_TEXT_DOMAIN_NAME ),
 					'slug'  => 'primary',
 					'color' => '#bb0000',
 				),
 				array(
-					'name'  => esc_html__( 'Secondary', 'msn-starter-theme' ),
+					'name'  => esc_html__( 'Secondary', MSN_TEXT_DOMAIN_NAME ),
 					'slug'  => 'secondary',
 					'color' => '#00bb00',
 				),
 				array(
-					'name'  => esc_html__( 'Dark Gray', 'msn-starter-theme' ),
+					'name'  => esc_html__( 'Dark Gray', MSN_TEXT_DOMAIN_NAME ),
 					'slug'  => 'dark-gray',
 					'color' => '#111',
 				),
 				array(
-					'name'  => esc_html__( 'Light Gray', 'msn-starter-theme' ),
+					'name'  => esc_html__( 'Light Gray', MSN_TEXT_DOMAIN_NAME ),
 					'slug'  => 'light-gray',
 					'color' => '#767676',
 				),
 				array(
-					'name'  => esc_html__( 'White', 'msn-starter-theme' ),
+					'name'  => esc_html__( 'White', MSN_TEXT_DOMAIN_NAME ),
 					'slug'  => 'white',
 					'color' => '#FFF',
 				),
@@ -340,22 +383,6 @@ class Hook {
 		add_image_size( 'theme-name-name-space-landscape', 400, 260, true );
 		add_image_size( 'theme-name-name-space-portrait', 480, 650, true );
 
-	}
-
-	/*
-	 * Register rest field for posts
-	 *
-	 * @see https://stackoverflow.com/questions/37641689/wp-rest-api-get-posts-with-their-meta
-	 * @see https://torquemag.io/2015/07/working-with-post-meta-data-using-the-wordpress-rest-api/
-	 * @see https://n8finch.com/getting-post-meta-wp-rest-api/
-	 * @since 1.0.1
-	 * */
-	public function add_meta_rest_field() {
-		register_rest_field( 'post', 'metadata', array(
-			'get_callback' => function ( $data ) {
-				return get_post_meta( $data['id'], '', '' );
-			},
-		) );
 	}
 
 	/**
@@ -445,7 +472,7 @@ class Hook {
 	 *
 	 * @since  1.0.1
 	 */
-	public function scripts() {
+	public function register_styles_scripts() {
 
 		/**
 		 * Add theme style to your WordPress site

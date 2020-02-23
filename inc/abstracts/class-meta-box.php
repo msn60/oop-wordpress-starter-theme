@@ -165,7 +165,7 @@ abstract class Meta_box implements Action_Hook_Interface {
 	/**
 	 * Register actions for Meta box class
 	 */
-	public function register_action() {
+	public function register_add_action() {
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ) );
 		add_action( 'save_post', array( $this, 'save' ) );
 	}

@@ -134,7 +134,7 @@ abstract class Admin_Sub_Menu implements Action_Hook_Interface{
 		 *
 		 * @access public
 		 */
-	public function register_action() {
+	public function register_add_action() {
 		add_action( 'admin_menu', array( $this, 'add_admin_sub_menu_page' ) );
 	}
 

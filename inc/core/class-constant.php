@@ -118,14 +118,14 @@ class Constant {
 		 * You can use from this constant to apply on main CSS file when you have changed it.
 		 */
 		if ( ! defined( 'THEME_NAME_CSS_VERSION' ) ) {
-			define( 'THEME_NAME_CSS_VERSION', '1.1' );
+			define( 'THEME_NAME_CSS_VERSION', '1.2' );
 		}
 		/**
 		 * THEME_NAME_JS_VERSION constant.
 		 * You can use from this constant to apply on main JS file when you have changed it.
 		 */
 		if ( ! defined( 'THEME_NAME_JS_VERSION' ) ) {
-			define( 'THEME_NAME_JS_VERSION', '1.1' );
+			define( 'THEME_NAME_JS_VERSION', '1.2' );
 		}
 
 		/**
@@ -137,11 +137,19 @@ class Constant {
 		}
 
 		/**
-		 * THEME_NAME constant.
+		 * MSN_THEME_NAME constant.
 		 * It is used to specify the name of theme inside theme directory.
 		 */
 		if ( ! defined( 'MSN_THEME_NAME' ) ) {
 			define( 'MSN_THEME_NAME', 'msn-oop-starter' );
+		}
+
+		/**
+		 * MSN_TEXT_DOMAIN_NAME constant.
+		 * It specifies text domain name for theme
+		 */
+		if ( ! defined( 'MSN_TEXT_DOMAIN_NAME' ) ) {
+			define( 'MSN_TEXT_DOMAIN_NAME', 'msn-oop-starter-theme' );
 		}
 
 		/*In future maybe I want to add constants for separated upload directory inside plugin directory*/

@@ -70,7 +70,7 @@ abstract class Ajax implements Action_Hook_Interface {
 	 * @since  1.0.1
 	 *
 	 */
-	public function register_action() {
+	public function register_add_action() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_script' ), 10 );
 		//hook to add your ajax request
 		add_action( 'wp_ajax_' . $this->action, [ $this, 'handle' ] );

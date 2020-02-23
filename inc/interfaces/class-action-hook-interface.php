@@ -35,5 +35,5 @@ interface Action_Hook_Interface {
 	 * Register actions that the object needs to be subscribed to.
 	 *
 	 */
-	public function register_action();
+	public function register_add_action();
 }

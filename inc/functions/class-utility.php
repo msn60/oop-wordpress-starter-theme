@@ -191,7 +191,7 @@ trait Utility {
 		if ( is_user_logged_in() ) {
 			return $content;
 		}
-		$return_message = esc_html__( 'This part only shows for login users!!!', 'msn-starter-theme' );
+		$return_message = esc_html__( 'This part only shows for login users!!!', MSN_TEXT_DOMAIN_NAME );
 
 		return "<p>{$return_message}</p>";
 	}
@@ -208,8 +208,8 @@ trait Utility {
 		return $template;
 	}
 
-	public function disable_feeds() {
+	public function set_disable_feeds_message() {
 
-		wp_die( esc_html__( 'No feed available, please visit homepage', 'msn-starter-theme' ) );
+		wp_die( esc_html__( 'No feed available, please visit homepage', MSN_TEXT_DOMAIN_NAME ) );
 	}
 }
