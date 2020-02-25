@@ -72,7 +72,7 @@ class Main implements Action_Hook_Interface {
 	 */
 	protected $theme_version;
 	/**
-	 * @var Hook $hook_object Object  to keep all of hooks in your theme
+	 * @var Public_Hook $hook_object Object  to keep all of hooks in your theme
 	 */
 	protected $hooks;
 	/**
@@ -118,15 +118,15 @@ class Main implements Action_Hook_Interface {
 
 	) {
 
-		if ( defined( THEME_NAME_VERSION ) ) {
+		if ( defined( 'THEME_NAME_VERSION' ) ) {
 			$this->theme_version = THEME_NAME_VERSION;
 		} else {
 			$this->theme_version = '1.0.1';
 		}
 		if ( defined( 'MSN_THEME_NAME' ) ) {
-			$this->theme_version = MSN_THEME_NAME;
+			$this->theme_name = MSN_THEME_NAME;
 		} else {
-			$this->theme_version = 'msn-oop-starter';
+			$this->theme_name = 'msn-oop-starter';
 		}
 
 		$this->hooks          = $hooks;
