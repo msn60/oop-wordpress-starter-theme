@@ -97,7 +97,7 @@ abstract class Admin_Sub_Menu implements Action_Hook_Interface{
 	 *
 	 * @param array $initial_value Initial value to pass to add_submenu_page function.
 	 */
-	public function __construct( $initial_value ) {
+	public function __construct( array $initial_value ) {
 
 		$this->parent_slug       = $initial_value['parent-slug'];
 		$this->page_title        = $initial_value['page_title'];

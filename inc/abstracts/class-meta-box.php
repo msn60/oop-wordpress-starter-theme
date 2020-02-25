@@ -147,7 +147,7 @@ abstract class Meta_box implements Action_Hook_Interface {
 	 *
 	 * @param array $initial_value Initial value to pass to add_meta_box  get_post_meta & update_post_meta function.
 	 */
-	public function __construct( $initial_values ) {
+	public function __construct( array $initial_values ) {
 		$this->id            = $initial_values['id'];
 		$this->title         = $initial_values['title'];
 		$this->callback      = $initial_values['callback'];

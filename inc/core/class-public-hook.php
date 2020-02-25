@@ -104,29 +104,6 @@ class Public_Hook implements Action_Hook_Interface, Filter_Hook_Interface {
 	}
 
 	/**
-	 * Register add_filters for theme
-	 *
-	 * @since  1.0.1
-	 *
-	 * @see    https://carlalexander.ca/designing-class-wordpress-hooks/
-	 */
-	public function register_add_filter() {
-		/*
-		 * Add portfolio page template in subdirectory
-		 * by using Utility trait
-		 * */
-		add_filter( 'template_include', [ $this, 'portfolio_page_template' ], 99 );
-		/*
-		 * show content only for login users (optional)
-		 * */
-		add_filter( 'Theme_name_name_space_only_show_for_login_users', [ $this, 'show_only_login_users' ] );
-		/*if ( ! is_admin() ) {
-			add_filter( 'show_admin_bar', '__return_false' );
-		}*/
-
-	}
-
-	/**
 	 * Remove extra actions.
 	 * This method removes extra add_actions that you want to avoid from executing.
 	 *
@@ -177,6 +154,29 @@ class Public_Hook implements Action_Hook_Interface, Filter_Hook_Interface {
 		remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
 		remove_action( 'wp_print_styles', 'print_emoji_styles' );
 		remove_action( 'admin_print_styles', 'print_emoji_styles' );
+	}
+
+	/**
+	 * Register add_filters for theme
+	 *
+	 * @since  1.0.1
+	 *
+	 * @see    https://carlalexander.ca/designing-class-wordpress-hooks/
+	 */
+	public function register_add_filter() {
+		/*
+		 * Add portfolio page template in subdirectory
+		 * by using Utility trait
+		 * */
+		add_filter( 'template_include', [ $this, 'portfolio_page_template' ], 99 );
+		/*
+		 * show content only for login users (optional)
+		 * */
+		add_filter( 'Theme_name_name_space_only_show_for_login_users', [ $this, 'show_only_login_users' ] );
+		/*if ( ! is_admin() ) {
+			add_filter( 'show_admin_bar', '__return_false' );
+		}*/
+
 	}
 
 	/*
@@ -473,7 +473,6 @@ class Public_Hook implements Action_Hook_Interface, Filter_Hook_Interface {
 	 * @since  1.0.1
 	 */
 	public function register_styles_scripts() {
-
 		/**
 		 * Add theme style to your WordPress site
 		 *

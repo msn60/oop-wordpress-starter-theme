@@ -25,8 +25,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * If you want create an admin page inside admin panel of WordPress,
  * you can use from this class.
  *
- * @package    Plugin_Name_Name_Space
- * @author     Your_Name <youremail@nomail.com>
+ * @package    Theme_Name_Name_Space
+ * @author     Mehdi Soltani <soltani.n.mehdi@gmail.com>
  *
  * @see        wp-admin/includes/plugin.php
  * @see        https://developer.wordpress.org/reference/functions/add_menu_page/
@@ -115,7 +115,7 @@ abstract class Admin_Menu implements Action_Hook_Interface{
 	 *
 	 * @param array $initial_value Initial value to pass to add_menu_page function.
 	 */
-	public function __construct( $initial_values ) {
+	public function __construct( array $initial_values ) {
 		$this->page_title        = $initial_values['page_title'];
 		$this->menu_title        = $initial_values['menu_title'];
 		$this->capability        = $initial_values['capability'];

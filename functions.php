@@ -132,5 +132,3 @@ final class Theme_Name_Theme {
 $theme_name_theme_object = Theme_Name_Theme::instance();
 $theme_name_theme_object->init_theme();
 
-
-
