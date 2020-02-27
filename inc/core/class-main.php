@@ -129,6 +129,7 @@ class Main implements Action_Hook_Interface {
 			$this->theme_name = 'msn-oop-starter';
 		}
 
+		// TODO: if condition for checking null
 		$this->hooks          = $hooks;
 		$this->initial_values = $initial_values;
 		/*
@@ -177,9 +178,11 @@ class Main implements Action_Hook_Interface {
 	 * @since  1.0.1
 	 */
 	private function set_admin_menus() {
+		// TODO: if condition for checking null
 		foreach ( $this->admin_menus as $admin_menu ) {
 			$admin_menu->register_add_action();
 		}
+		// TODO: if condition for checking null
 		foreach ( $this->admin_sub_menus as $admin_sub_menu ) {
 			$admin_sub_menu->register_add_action();
 		}
@@ -189,6 +192,7 @@ class Main implements Action_Hook_Interface {
 	 * Method to set actions for meta boxes in theme
 	 * */
 	public function set_meta_boxes() {
+		// TODO: if condition for checking null
 		foreach ( $this->meta_boxes as $meta_box ) {
 			$meta_box->register_add_action();
 		}
@@ -201,6 +205,7 @@ class Main implements Action_Hook_Interface {
 	 * @since  1.0.1
 	 */
 	private function handle_ajax_call() {
+		// TODO: if condition for checking null
 		foreach ( $this->ajax_calls as $ajax_call ) {
 			$ajax_call->register_add_action();
 		}

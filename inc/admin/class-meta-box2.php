@@ -68,6 +68,7 @@ class Meta_Box2 extends Meta_box {
             <label for="meta_box2_first_input">
 				<?php _e( 'first input', MSN_TEXT_DOMAIN_NAME ); ?>
             </label>
+            <!-- TODO: Check is undefined or not -->
             <input type="text" id="meta_box2_first_input" name="meta_box2_first_input" value="<?php echo esc_attr( @$values['first_input'] ); ?>"
                    size="30"/>
         </div>
@@ -76,6 +77,7 @@ class Meta_Box2 extends Meta_box {
             <label for="meta_box2_second_input">
 				<?php _e( 'second input', MSN_TEXT_DOMAIN_NAME ); ?>
             </label>
+            <!-- TODO: Check is undefined or not -->
             <input type="text" id="meta_box2_second_input" name="meta_box2_second_input" value="<?php echo esc_attr( @$values['second_input'] ); ?>"
                    size="30"/>
         </div>
