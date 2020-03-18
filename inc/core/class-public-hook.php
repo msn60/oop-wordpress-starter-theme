@@ -218,6 +218,8 @@ class Public_Hook implements Action_Hook_Interface, Filter_Hook_Interface {
 		 */
 		add_theme_support( 'post-thumbnails' );
 
+		add_theme_support('woocommerce');
+
 		/**
 		 * Enable support for site logo.
 		 *
